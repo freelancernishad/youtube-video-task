@@ -1,0 +1,93 @@
+<template>
+    <div>
+
+
+        <section id="topbar">
+            <div class="title">
+                <a href="javascript:void(0)" @click="$router.go(-1)"><i class="fa fa-angle-left"></i></a>
+                <p>Recharge</p>
+            </div>
+        </section>
+
+        <section id="reclist">
+            <div class="details">
+                <div class="container-fluid">
+
+
+                    <form @submit.stop.prevent="onSubmit">
+
+
+                        <div class="form-group">
+                            <label for="">Recharge Amount</label>
+                            <input type="tel" class="form-control" v-model="form.amount" >
+                        </div>
+
+                        <p style="color: red;text-align: center;font-size: 17px;">রিচার্জ সময় সপ্তাহের সকল দিন সকাল ১০:০০ থেকে রাত ১১ঃ০০ টা পর্যন্ত </p>
+
+                        <button class="btn btn-info" type="button" disabled v-if="con">Wait...</button>
+                        <button class="btn btn-info" type="submit" v-else>Submit</button>
+
+                    </form>
+
+
+
+
+
+                    <!-- <router-link v-for="pay in row" :to="{name:'RechargePage',params:{method:pay.id}}" :key="'pay'+pay.id"><img :src="pay.image"></router-link> -->
+
+                </div>
+            </div>
+        </section>
+
+
+                <div class="copyPopup" v-if="popup">
+                    <span> Number copied success</span>
+                </div>
+
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+               popup:false,
+            form: {
+                amount: '',
+            },
+            row: {},
+            payMethods: '',
+            amount: 0,
+            step: 1,
+            copyMessage:'',
+            rates:'',
+            con:false,
+        }
+    },
+    methods: {
+
+
+
+        async onSubmit() {
+            this.form['userid'] = localStorage.getItem('userid')
+            var res = await this.callApi('post', `/api/get/payment/url`, this.form);
+            window.location.href=res.data.payment_url
+
+        },
+    },
+    mounted() {
+
+
+    },
+}
+</script>
+<style>
+.mainitem {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+</style>
