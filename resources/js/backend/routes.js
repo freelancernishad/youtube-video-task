@@ -56,6 +56,7 @@ let Authuser = require('./components/users/index.vue').default;
 let Useraccount = require('./components/users/account.vue').default;
 let UserTeam = require('./components/users/team.vue').default;
 let Usertask = require('./components/users/task2.vue').default;
+let UsertaskComplete = require('./components/users/taskcomplete.vue').default;
 //////////////////
 let companyPro = require('./components/users/companyPro.vue').default;
 let license = require('./components/users/license.vue').default;
@@ -157,6 +158,7 @@ export const routes = [
   { path:  `${prefixuser}/account`, component: Useraccount, name:'Useraccount',meta: { layout: blanklayout } },
   { path:  `${prefixuser}/team`, component: UserTeam, name:'UserTeam',meta: { layout: blanklayout } },
   { path:  `${prefixuser}/task`, component: Usertask, name:'Usertask',meta: { layout: blanklayout } },
+  { path:  `${prefixuser}/task/:id`, component: UsertaskComplete, name:'UsertaskComplete',meta: { layout: blanklayout } },
   /////////////
 
 

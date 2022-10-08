@@ -96,20 +96,20 @@
 
                         <li class="nav-item sidebar-nav-item" :class="{ active: selected == 101 }">
                             <a href="javascript:void(0)" class="nav-link" @click="submenu(101)"><i
-                                    class="flaticon-technological"></i><span>Products</span>
+                                    class="flaticon-technological"></i><span>Videos</span>
                             </a>
                             <transition name="slide">
                                 <ul class="nav sub-group-menu menu-open child" v-if="selected == 101"
                                     style="display:block">
 
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <router-link :to="{ name: 'category' }" class="nav-link"><i
                                                 class="fas fa-angle-right"></i> Category </router-link>
-                                    </li>
+                                    </li> -->
 
                                     <li class="nav-item">
                                         <router-link :to="{ name: 'blogs' }" class="nav-link"><i
-                                                class="fas fa-angle-right"></i> Products </router-link>
+                                                class="fas fa-angle-right"></i> Videos </router-link>
                                     </li>
 
 

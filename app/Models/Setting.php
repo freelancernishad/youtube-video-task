@@ -11,6 +11,8 @@ class Setting extends Model
 
     protected $fillable = [
         'notice',
+        'new_regitration',
+        'refer_bonus',
         'a'
     ];
 }

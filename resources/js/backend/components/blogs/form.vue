@@ -38,7 +38,7 @@
                                 </div>
 
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="display:none">
                                     <div class="form-group">
                                         <label>Category</label>
 
@@ -62,9 +62,18 @@
                                 </div>
 
 
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6" style="display:none">
                                     <div class="form-group">
                                         <label>Price</label>
+                                        <input type="text" class="form-control" v-model="form.price" id="title">
+                                    </div>
+
+                                </div>
+                                 -->
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Video Code</label>
                                         <input type="text" class="form-control" v-model="form.price" id="title">
                                     </div>
 
@@ -143,7 +152,7 @@ export default {
         return {
            form: {
                 title:null,
-                Category:null,
+                Category:'Products',
                 price:null,
                 short_description:null,
                 description:null,
@@ -176,23 +185,19 @@ export default {
 
 
 
-       getCategory(){
+       async getCategory(){
 
-                axios.get(`/api/get/category/list`)
-                .then((res)=>{
+        var res = await this.callApi('get',`/api/get/category/list`,[]);
+        this.categorys = res.data
 
-                    this.categorys = res.data
-                })
+
 
         },
 
-       getunionInfo(id=''){
+        async getunionInfo(id=''){
 
-                axios.get(`/api/update/blog/${id}`)
-                .then((res)=>{
-
-                    this.form = res.data
-                })
+        var res = await this.callApi('get',`/api/update/blog/${id}`,[]);
+        this.form = res.data
 
         },
 

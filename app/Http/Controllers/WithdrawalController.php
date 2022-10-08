@@ -20,15 +20,15 @@ class WithdrawalController extends Controller
     {
         $id = $request->id;
         if ($id) {
-            return Withdrawal::where(['user_id' => $id])->orderBy('id','DESC')->get();
+            return Withdrawal::where(['user_id' => $id])->orderBy('created_at','DESC')->get();
         }
         $status = $request->status;
         if($status=='all'){
-            return Withdrawal::with(['methods','users'])->orderBy('id','DESC')->get();
+            return Withdrawal::with(['methods','users'])->orderBy('created_at','DESC')->get();
         }else{
             return Withdrawal::with(['methods','users'])->where([
                 'status'=>$status
-            ])->orderBy('id','DESC')->get();
+            ])->orderBy('created_at','DESC')->get();
         }
 
     }
@@ -104,7 +104,7 @@ class WithdrawalController extends Controller
     public function store(Request $request)
     {
         $user_id = $request->user_id;
-        $dpcount = Deposit::where(['user_id'=>$user_id])->count();
+        $dpcount = Deposit::where(['user_id'=>$user_id,'status'=>'approved'])->count();
         if($dpcount>0){
 
 

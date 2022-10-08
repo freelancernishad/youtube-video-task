@@ -12,20 +12,30 @@
 
 
 
-        <section id="listmenu">
+        <section id="listmenus">
 
 
-            <div role="feed" class="van-list" aria-busy="true">
 
-                <div class="recordDiv p-3" v-for="rech in row" :key="'rech'+rech.id">
-                    <h3>Withdraw amount： {{ rech.amount }}</h3>
-                    <p>Order Number： {{ rech.trx }}</p>
+            <div role="feed" class="van-list row" aria-busy="true">
+                <div class="recordDiv col-md-6" v-for="rech in row" :key="'rech'+rech.id">
+                    <div class="card text-dark" :style="{backgroundColor:generator()}" style="margin-bottom: 20px">
+                        <div class="card-header">
+                            <h5 class="card-title">Withdraw amount： {{ rech.amount }} </h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Order Number： {{ rech.trx }}</p>
                     <p>Withdraw status： {{ rech.status }}</p>
                     <p>Date： {{ dateformatglobal(rech.created_at)[6] }}</p>
-                    <p>Remarks： - </p>
+                        </div>
+                        <div class="card-footer">
+                            <p>Remarks： - {{ rech.admin_feedback }}</p>
+                        </div>
+                    </div>
                 </div>
-
             </div>
+
+
+
 
 
 
@@ -53,7 +63,9 @@ export default {
     },
     methods: {
 
-
+        generator() {
+            return '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+        },
 
           async getData() {
    var id = localStorage.getItem('userid');

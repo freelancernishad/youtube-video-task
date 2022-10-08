@@ -3299,42 +3299,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      settings: {}
+      settings: {},
+      Frontloader: false
     };
   },
   methods: {
     callApi: function callApi(method, url, dataObj) {
-      var _arguments = arguments;
+      var _this = this;
+
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var header;
+        var token;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                header = _arguments.length > 3 && _arguments[3] !== undefined ? _arguments[3] : {};
-                _context.prev = 1;
-                _context.next = 4;
+                _this.Frontloader = true;
+                token = localStorage.getItem("token");
+                _context.prev = 2;
+                _context.next = 5;
                 return axios({
                   method: method,
                   url: url,
                   data: dataObj,
-                  headers: header
-                });
+                  headers: {
+                    'Authorization': "Bearer ".concat(token)
+                  }
+                }).then(_this.Frontloader = false);
 
-              case 4:
+              case 5:
                 return _context.abrupt("return", _context.sent);
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](1);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](2);
                 return _context.abrupt("return", _context.t0.response);
 
-              case 10:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 7]]);
+        }, _callee, null, [[2, 8]]);
       }))();
     },
     callApi2: function callApi2(method, url, dataObj) {
@@ -3349,7 +3354,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     settingFun: function settingFun() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var res;
@@ -3358,11 +3363,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _this.callApi('get', "/api/admin/setting/1", []);
+                return _this2.callApi('get', "/api/admin/setting/1", []);
 
               case 2:
                 res = _context2.sent;
-                _this.settings = res.data;
+                _this2.settings = res.data;
 
               case 4:
               case "end":
@@ -3556,31 +3561,22 @@ var Notification = /*#__PURE__*/function () {
 
   _createClass(Notification, [{
     key: "successSound",
-    value: function successSound() {
-      // console.log(this)
-      var data = {
-        soundurl: ASSETURL + 'Single Audio.mp3'
-      };
-      var audio = new Audio(data.soundurl);
-      audio.play();
+    value: function successSound() {// console.log(this)
+      // var data = {  soundurl : ASSETURL+'Single Audio.mp3'}
+      // var audio = new Audio(data.soundurl);
+      // audio.play();
     }
   }, {
     key: "deleteSound",
-    value: function deleteSound() {
-      var data = {
-        soundurl: ASSETURL + 'Broke Glass.mp3'
-      };
-      var audio = new Audio(data.soundurl);
-      audio.play();
+    value: function deleteSound() {//     var data = {  soundurl : ASSETURL+'Broke Glass.mp3'}
+      //     var audio = new Audio(data.soundurl);
+      //     audio.play();
     }
   }, {
     key: "errorSound",
-    value: function errorSound() {
-      var data = {
-        soundurl: ASSETURL + 'Windows error.mp3'
-      };
-      var audio = new Audio(data.soundurl);
-      audio.play();
+    value: function errorSound() {// var data = {  soundurl : ASSETURL+'Windows error.mp3'}
+      // var audio = new Audio(data.soundurl);
+      // audio.play();
     }
   }, {
     key: "success",

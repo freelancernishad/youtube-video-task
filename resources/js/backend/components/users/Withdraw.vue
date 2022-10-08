@@ -40,7 +40,7 @@
                         <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার সকাল
                             ১০:০০ থেকে সন্ধা ০৫:০০ টা পর্যন্ত </p>
                         <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার প্রসেসিং ফি {{ gateways.percent_charge }}% এবং
-                            প্রত্যাহার ২৪ ঘন্টার মধ্যে একাউন্ট এ পৌছাবে</p>
+                            প্রত্যাহার {{ gateways.processtime }} ঘন্টার মধ্যে একাউন্ট এ পৌছাবে</p>
                     </div>
                     <form @submit.stop.prevent="onSubmit" v-else-if="step == 2">
                         <h4 class="d-block bg-success text-white p-1 my-3">Payment Info</h4>
@@ -190,6 +190,10 @@ export default {
 
 // 10:00<10:01
 // console.log(User.dateformat()[9]);
+
+
+
+
         if(User.dateformat()[9]<=16){
             if(User.dateformat()[9]>=10){
 

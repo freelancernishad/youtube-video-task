@@ -103,15 +103,14 @@ export default {
     methods: {
 
 
-        sonodname(){
+       async sonodname(){
             this.preLooding = true
-              axios.get(`/api/get/blog/list`)
-                .then(({ data }) => {
-                  this.items = data
+        var res = await this.callApi('get',`/api/get/blog/list`,[]);
+
+                this.items = res.data
                   this.TotalRows = `${this.items.length}`;
                   this.preLooding = false
-                })
-                .catch()
+
         },
 
 

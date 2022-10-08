@@ -9,6 +9,7 @@ class Task extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'orderNumber',
         'user_id',
         'task_comisition',
         'date',

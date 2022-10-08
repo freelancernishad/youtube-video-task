@@ -18,46 +18,10 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function paymentUrl(Request $request)
-    {
-        $amount =$request->amount;
-
-$metadata = json_encode($request->all());
-$curl = curl_init();
-$panel_url = env('UDDOKTAPY_URL');
-$Api_Key = env('UDDOKTAPY_API_KEY');
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "$panel_url/api/checkout-v2",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS =>'{
-     "full_name": "Freelancer Nishad",
-     "email": "freelancernishad123@gmail.com",
-     "amount": "'.$amount.'",
-     "metadata": '.$metadata.',
-     "redirect_url": "'.url('api/success').'",
-     "cancel_url": "'.url('api/cancel').'",
-     "webhook_url": "'.url('api/success').'"
-}
-',
-  CURLOPT_HTTPHEADER => array(
-    "RT-UDDOKTAPAY-API-KEY: $Api_Key",
-    "Content-Type: application/json"
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-return $response;
-
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
 
 public function referfunction($id)
@@ -241,6 +205,7 @@ public function referfunction($id)
         }
 
         $refercode = $user->username;
+        $referList = User::with(['Plans'])->where(['ref_by'=>$refercode])->get();
         $refercount = User::where(['ref_by'=>$refercode])->count();
 
         $deposit = Deposit::where(['user_id'=>$user->id,'status'=>'approved'])->get();
@@ -251,12 +216,15 @@ public function referfunction($id)
 
         $todayDate = date('Y-m-d');
          $YesterdayDate =  date('Y-m-d',strtotime("-1 days"));
+        $registration_bonus = Transition::where(['user_id'=>$user->id,'remark'=>'registration_bonus'])->sum('amount');
         $taskearn = Task::where(['user_id'=>$user->id])->sum('task_comisition');
         $todayearn = Task::where(['user_id'=>$user->id,'date'=>$todayDate])->sum('task_comisition');
         $YesterdayEarn = Task::where(['user_id'=>$user->id,'date'=>$YesterdayDate])->sum('task_comisition');
 
 
        $rows = [
+           'new_regitration'=>settings()->new_regitration,
+           'registration_bonus'=>$registration_bonus,
            'taskearn'=>$taskearn,
            'todayearn'=>$todayearn,
            'YesterdayEarn'=>$YesterdayEarn,
@@ -268,6 +236,7 @@ public function referfunction($id)
            'withdraw'=>$withdraw,
            'withdrawamount'=>$withdrawamount,
            'refercount'=>$refercount,
+           'referList'=>$referList,
        ];
        return $rows;
     }
@@ -306,6 +275,10 @@ public function referfunction($id)
             $data['password'] = hash::make($request->password);
         }
        return $user->update($data);
+
+
+
+
     }
 
     /**
@@ -320,63 +293,64 @@ public function referfunction($id)
     }
 
 
-    public function referActiveUser($array=[])
+
+    public function referActiveUser($array = [])
     {
         $Active = 0;
         foreach ($array as $value) {
-
-            $depositlist = Deposit::where(['user_id'=>$value->id,'status'=>'approved'])->count();
-            if($depositlist>0){
-
-                $Active +=1;
+            $depositlist = Deposit::where(['user_id' => $value->id, 'status' => 'approved'])->count();
+            if ($depositlist > 0) {
+                $Active += 1;
             }
-
-      }
-      return $Active;
+        }
+        return $Active;
     }
-
-
+    public function referdeposit($array = [])
+    {
+        $amount = 0;
+        foreach ($array as $value) {
+            $depositlist = Deposit::where(['user_id' => $value->id, 'status' => 'approved'])->sum('amount');
+            if ($depositlist > 0) {
+                $amount += $depositlist;
+            }
+        }
+        return $amount;
+    }
     public function teamdetails(Request $request)
     {
 
         $id = $request->id;
-
         $refercount =  $this->referfunction($id);
         $Direct_Invites = 0;
         $Level1_Invites = 0;
         $Level2_Invites = 0;
-
-
-
+        $Direct_Invites_diposit = 0;
+        $Level1_Invites_diposit = 0;
+        $Level2_Invites_diposit = 0;
         $level1Active = 0;
         $level2Active = 0;
         $level3Active = 0;
-
-if(count($refercount['level1'])){
-
-    $Direct_Invitelist =  $refercount['level1'];
-
-  $level1Active = $this->referActiveUser($Direct_Invitelist);
-
-    $Direct_Invites =  count($refercount['level1']);
-}
-if(count($refercount['level2'])){
-
-    $Level1_Invitelist =  $refercount['level2'][0];
-   $level2Active =  $this->referActiveUser($Level1_Invitelist);
-
-    $Level1_Invites =  count($refercount['level2'][0]);
-}
-if(count($refercount['level3'])){
-
-    $Level2_Invitelist =  $refercount['level3'][0];
-    $level3Active =  $this->referActiveUser($Level2_Invitelist);
-
-    $Level2_Invites =  count($refercount['level3'][0]);
-}
-
- $total_member = $Direct_Invites+$Level1_Invites+$Level2_Invites;
-  $total_ActiveMember = $level1Active+$level2Active+$level3Active;
+        if (count($refercount['level1'])) {
+            $Direct_Invitelist =  $refercount['level1'];
+            $level1Active = $this->referActiveUser($Direct_Invitelist);
+            $Direct_Invites_diposit = $this->referdeposit($Direct_Invitelist);
+            $Direct_Invites =  count($refercount['level1']);
+        }
+        if (count($refercount['level2'])) {
+            $Level1_Invitelist =  $refercount['level2'][0];
+            $level2Active =  $this->referActiveUser($Level1_Invitelist);
+            $Level1_Invites =  count($refercount['level2'][0]);
+            $Level1_Invites_diposit = $this->referdeposit($Level1_Invitelist);
+        }
+        if (count($refercount['level3'])) {
+            $Level2_Invitelist =  $refercount['level3'][0];
+            $level3Active =  $this->referActiveUser($Level2_Invitelist);
+            $Level2_Invites =  count($refercount['level3'][0]);
+            $Level2_Invites_diposit = $this->referdeposit($Level2_Invitelist);
+        }
+        $total_member = $Direct_Invites + $Level1_Invites + $Level2_Invites;
+        $total_ActiveMember = $level1Active + $level2Active + $level3Active;
+        $total_ActiveMember_deposit = $Direct_Invites_diposit + $Level1_Invites_diposit + $Level2_Invites_diposit;
 
 
 
@@ -405,6 +379,7 @@ if(count($refercount['level3'])){
            'total_member'=>$total_member,
            'total_ActiveMember'=>$total_ActiveMember,
            'deposit'=>$deposit,
+           'total_ActiveMember_deposit'=>$total_ActiveMember_deposit,
            'depositamount'=>$depositamount,
            'user'=>$user,
            'withdraw'=>$withdraw,
@@ -425,8 +400,8 @@ if(count($refercount['level3'])){
         if($type=='account'){
             $old = $request->old;
             $newpass = $request->newpass;
-
-            if(Hash::check($newpass, $old)){
+//  Hash::check($user->password, $old);
+            if(Hash::check($old,$user->password)){
                 $user->update([
                     'password'=> hash::make($newpass)
                 ]);

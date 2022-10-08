@@ -52,14 +52,20 @@
 
 
 
-        <section id="listmenu">
+        <section id="listmenus">
 
 
-            <div role="feed" class="van-list" aria-busy="true">
+            <div role="feed" class="van-list row" aria-busy="true">
 
-                <div class="recordDiv p-3" v-for="task in row.task" :key="'task'+task.id">
-                    <p>Date： {{ dateformatglobal(task.created_at)[6] }}</p>
-                    <p>Task Comisition：  {{ task.task_comisition }} TK</p>
+                <div class="col-md-6" v-for="task in row.task" :key="'task'+task.id">
+
+                    <div class="card" :style="{backgroundColor:generator()}" style="margin-bottom: 20px">
+<div class="card-body">
+
+                    <p class="text-dark">Date： {{ dateformatglobal(task.created_at)[6] }}</p>
+                    <p class="text-dark">Task Comisition：  {{ task.task_comisition }} TK</p>
+                </div>
+                </div>
                 </div>
 
             </div>
@@ -91,6 +97,10 @@ export default {
         }
     },
     methods: {
+        generator(){
+        return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+      },
+
           async getData() {
    var id = localStorage.getItem('userid');
             var res = await this.callApi('get', `/api/admin/task?id=${id}`, []);

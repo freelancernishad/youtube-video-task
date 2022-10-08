@@ -17,13 +17,19 @@
         <section>
             <div class="row">
 
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                <div class="col-md-12"><iframe width="100%" height="400px" src="https://www.youtube.com/embed/QNUSIOMb6vI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+
+                <div class="col-md-12" v-for="(vid,index) in products" :key="'vid'+index">
+                    <router-link :to="{name:'UsertaskComplete',params:{id:vid.price}}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img width="100%" :src="vid.Images" alt="">
+                                </div>
+                            </div>
+                    </router-link>
+                </div>
+
+
 
 
             </div>
@@ -49,6 +55,7 @@ export default {
     },
     data() {
         return {
+            videoId: 'lG0Ys-2d4MA',
             receive: false,
             orderpage: false,
             random: 0,
@@ -58,73 +65,27 @@ export default {
             form: {
                 task_comisition: 0
             },
-            products: [
-                // 'mainproduct.jpeg',
-                '1.jpeg',
-                '2.jpeg',
-                '3.jpeg',
-                '4.jpeg',
-                '5.jpeg',
-                '6.jpeg',
-                '7.jpeg',
-                '8.jpeg',
-                '9.jpeg',
-                '10.jpeg',
-                '11.jpeg',
-            ],
+            products: {},
             taskProduct:'',
         }
     },
+
     methods: {
-        TryAgain() {
-            this.receive = false;
-            this.orderpage = false;
-            this.getData();
-        },
-        recievefun() {
-            this.receive = true
-            if (Number(this.row.user.task) < 1) {
-                Notification.customError(`You Can't Complete any order Today`);
-                this.receive = false
-            } else {
 
-                let randomnumber = setInterval(() => {
-                    this.random = Math.floor(Math.random() * (1000000000000 - 1 + 1)) + 1
-                }, 50);
-                setTimeout(() => {
-                    this.random = Math.floor(Math.random() * (this.row.user.balance - 1 + 1)) + 1
-                    clearInterval(randomnumber);
-                    this.orderpage = true
-                    var task_comisition = ((this.row.user.balance * this.row.plans.comission_rate) / 100);
-                    this.form.task_comisition = parseFloat(task_comisition).toFixed(2)
 
-const random = Math.floor(Math.random() * this.products.length);
-    this.taskProduct = this.$asseturl + 'img/'+this.products[random];
-// console.log(random, this.products[random]);
-
-                }, 3000);
-            }
-        },
         async getData() {
+            var resb = await this.callApi('get',`/api/get/blog/list`,[])
+              this.products = resb.data
+
+
+
             var id = localStorage.getItem('userid');
             var res = await this.callApi('get', `/api/admin/user/${id}`, []);
             this.row = res.data;
         },
 
 
-    async orderSubmit(){
-        this.form['user_id'] = this.row.user.id;
-        var res = await this.callApi('post',`/api/admin/task`,this.form);
-        if(res.data==444){
 
-            Notification.customError(`You Can't Complete any order Today`);
-        }else{
-
-            Notification.customSuccess('Task Completed');
-        }
-
-        this.TryAgain();
-    }
 
 
 
@@ -154,3 +115,4 @@ button.OrderReceive {
     padding: 11px 15px;
 }
 </style>
+

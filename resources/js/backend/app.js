@@ -16,7 +16,9 @@ require('../bootstrap');
 
 
 
+import VueYoutube from 'vue-youtube'
 
+Vue.use(VueYoutube)
 
 
 // Vue.use(require('vue-moment'));

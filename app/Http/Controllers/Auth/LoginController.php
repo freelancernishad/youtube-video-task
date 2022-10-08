@@ -43,14 +43,20 @@ class LoginController extends Controller
     {
         $clientIP = request()->ip();
 
-        $users = User::where(['mobile' => $request->mobile, 'status' => 'active'])->first();
+        $userscount = User::where(['mobile' => $request->mobile, 'status' => 'active'])->count();
+        if($userscount){
+            $users = User::where(['mobile' => $request->mobile, 'status' => 'active'])->first();
+            $users->update(['ip' => $clientIP]);
+
+        }
+
         // if($users->role=='admin'){
 
         // }else{
         //             // $users = User::where('ip',$clientIP)->count();
-        // $usersCount = User::where(['ip' => $clientIP])->count();
+        //  $usersCount = User::where(['ip' => $clientIP])->count();
         // if ($usersCount == 0) {
-            $users->update(['ip' => $clientIP]);
+            // $users->update(['ip' => $clientIP]);
         // } else {
 
         //     $usersCount = User::where('mobile', '!=', $request->mobile)->where(['ip' => $clientIP])->count();
@@ -117,7 +123,6 @@ class LoginController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => 60,
-
             'user_id' => auth()->user()->id,
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,

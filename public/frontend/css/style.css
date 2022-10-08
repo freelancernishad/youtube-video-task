@@ -175,15 +175,16 @@ padding-top: 9px;
 
 }
 #topbar {
-	background: #ffffff;
-	text-align: center;
-	color: #323233;
+    background: #c5380e;
+    text-align: center;
+    color: #ffffff;
 	font-size: 15px;
 	line-height: 23px;
 	font-family: arial;
 	padding: 12px 0;
 	position: relative;
 	border-bottom: 1px solid #ddd;
+    margin-bottom: 40px;
 }
 #topbar p{
 
@@ -194,7 +195,7 @@ padding-top: 9px;
 .title i {
 	position: absolute;
 	left: 17px;
-	color: #1989fa;
+	color: #ffffff;
 	font-size:22px;
 }
 /* #listmenu {

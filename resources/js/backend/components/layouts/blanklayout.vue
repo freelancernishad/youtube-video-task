@@ -1,5 +1,7 @@
 <template>
     <div>
+        <h1 v-if="Frontloader">loading....</h1>
+
     <!-- <section id="call">
       <img :src="$asseturl+'frontend/img/phone.png'" alt="phone" />
     </section> -->

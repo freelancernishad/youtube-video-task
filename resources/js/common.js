@@ -5,19 +5,27 @@ export default {
     },
     data(){
         return {
-            settings:{}
+            settings:{},
+            Frontloader:false
         }
     },
     methods: {
 
-        async callApi(method, url, dataObj ,header={}){
+        async callApi(method, url, dataObj){
+
+            this.Frontloader = true
+            const token = localStorage.getItem("token");
             try {
               return await axios({
                     method: method,
                     url: url,
                     data: dataObj,
-                    headers:header
-                });
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                      }
+                }).then(
+                    this.Frontloader = false
+                );
             } catch (e) {
                 return e.response
             }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use App\Models\Task;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Deposit;
+use Illuminate\Http\Request;
+
 class TaskController extends Controller
 {
     /**
@@ -27,14 +29,17 @@ class TaskController extends Controller
 
         $id = $request->id;
         if($id){
+
             $task = Task::where(['user_id'=>$id])->get();
             $user = User::find($id);
+            $plans = Plan::find($user->plan_id);
 
 
             $rows = [
 
                 'user'=>$user,
                 'task'=>$task,
+                'plans'=>$plans,
 
             ];
             return $rows;
@@ -66,8 +71,30 @@ class TaskController extends Controller
 
         $user_id = $request->user_id;
         $task_comisition = $request->task_comisition;
-        $user = User::find($user_id);
-        $tascount = $user->task;
+
+     $user = User::find($user_id);
+
+$registerdate =  date('d-m-Y', strtotime($user->created_at));
+$todaydate =  date('d-m-Y');
+
+
+$now = time(); // or your date as well
+$your_date = strtotime($registerdate);
+$datediff = $now - $your_date;
+$registerDays = round($datediff / (60 * 60 * 24));
+
+        if($registerDays>4){
+
+           $planName = Plan::find($user->plan_id)->name;
+           if($planName=='VIP0'){
+            return 1000;
+           }
+
+
+        }
+
+
+    $tascount = $user->task;
 if($tascount>0){
     $levelOneCommisition =  tasklevelCommistion('Level1', $task_comisition);
     $levelTwoCommisition =  tasklevelCommistion('Level2', $task_comisition);

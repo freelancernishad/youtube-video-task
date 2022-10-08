@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
+use App\Models\Task;
+use App\Models\User;
 use App\Models\Transition;
 use Illuminate\Http\Request;
 
@@ -12,9 +15,29 @@ class TransitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $id = $request->id;
+        if($id){
+
+            $task = Task::where(['user_id'=>$id])->get();
+            $transiton = Transition::where(['user_id'=>$id])->get();
+            $user = User::find($id);
+            $plans = Plan::find($user->plan_id);
+
+
+            $rows = [
+
+                'user'=>$user,
+                'task'=>$task,
+                'transiton'=>$transiton,
+                'plans'=>$plans,
+
+            ];
+            return $rows;
+
+        }
     }
 
     /**

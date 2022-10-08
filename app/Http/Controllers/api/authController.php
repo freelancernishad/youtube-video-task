@@ -78,14 +78,15 @@ class authController extends Controller
         // $users = User::where('ip',$clientIP)->count();
         // if($users>0) return 444;
 
+
         $data = [];
         $data = $r->except(['password','password_confirmation']);
         $data['password'] = hash::make($r->password);
         $data['email'] =time().'@gmail.com';
-
-        $data['balance'] =300;
+        $bonus = settings()->new_regitration;
+        $data['balance'] =$bonus;
         $data['task'] =10;
-        $data['plan_id'] =planId(300);
+        $data['plan_id'] =planId($bonus);
         $data['ip'] = $clientIP;
         $data['status'] ='active';
         $validator = Validator::make($r->all(), [
@@ -102,17 +103,24 @@ class authController extends Controller
                 return 422;
             }else{
 
+               $refer_bonus =  (int)settings()->refer_bonus;
+               if($refer_bonus>0){
+                $reUserCount =  User::where('ref_by',$r->ref_by)->count();
+                if($reUserCount<70){
+                    $reUser =  User::where('username',$r->ref_by)->first();
+                    transitionCreate($reUser->id,$refer_bonus,0,$refer_bonus,'increase','1234','refer_commisition','');
+                    $reUser->update(['balance'=> balanceIncrease($reUser->balance, $refer_bonus)]);
+                }
+               }
 
 
-                // $reUserCount =  User::where('ref_by',$r->ref_by)->count();
-                // if($reUserCount<70){
-                //     $reUser =  User::where('username',$r->ref_by)->first();
-                //     transitionCreate($reUser->id,10,0,10,'increase','1234','refer_commisition','');
-                //     $reUser->update(['balance'=> balanceIncrease($reUser->balance, '10')]);
-                // }
 
-             return     $user =   User::create($data);
-            }
+
+                     $user =   User::create($data);
+
+                        transitionCreate($user->id,$bonus,0,$bonus,'increase','DJGDFGLJ','registration_bonus','');
+            return $user;
+                    }
         } catch (Exception $e) {
             return sent_error($e->getMessage(), $e->getCode());
         }

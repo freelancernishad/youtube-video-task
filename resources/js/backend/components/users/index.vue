@@ -2,9 +2,14 @@
   <div>
 
 
+
+ 
+
+
+<!--
     <section id="slider">
         <img width="100%" :src="slideimage" alt="">
-    </section>
+    </section> -->
 
     <section id="marquee">
       <div class="container-fluid">
@@ -25,36 +30,78 @@
       </div>
     </section>
 
+
+
+
+
     <section id="aui">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-3 p-0">
-            <router-link :to="{name:'Recharge'}">
-              <img class="reImage" :src="$asseturl+'frontend/img/recharge.jpeg'" alt="tab" />
-              <span>Recharge</span>
+
+
+
+            <div class="col-md-6">
+                <router-link :to="{name:'Recharge'}">
+                <div class="card" style="    background: #afaf0b80; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/recharge.png'" alt="tab" />
+                        <h5 class="card-title text-white">Recharge</h5>
+                    </div>
+                </div>
             </router-link>
-          </div>
-          <div class="col-3 p-0">
-            <router-link :to="{name:'Withdraw'}">
-              <img class="reImage" :src="$asseturl+'frontend/img/withdraw.jpeg'" alt="tab" />
-              <span>Withdrawal</span>
+            </div>
+
+
+
+
+            <div class="col-md-6">
+                <router-link :to="{name:'Withdraw'}">
+                <div class="card" style="    background: #960baf80; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/withdraw.png'" alt="tab" />
+                        <h5 class="card-title text-white">Withdraw</h5>
+                    </div>
+                </div>
             </router-link>
-          </div>
-          <div class="col-3 p-0">
-            <router-link :to="{name:'companyPro'}">
-              <img class="reImage" :src="$asseturl+'frontend/img/company.jpeg'" alt="tab" />
-              <span>Company Profiles</span>
+            </div>
+
+
+
+
+            <div class="col-md-6">
+                <router-link :to="{name:'companyPro'}">
+                <div class="card" style="    background: #0baf4a80; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/companyprofile.png'" alt="tab" />
+                        <h5 class="card-title text-white">Company Profile</h5>
+                    </div>
+                </div>
             </router-link>
-          </div>
-          <div class="col-3 p-0">
-            <router-link :to="{name:'invite'}">
-              <img class="reImage" :src="$asseturl+'frontend/img/invite.jpeg'" alt="tab" />
-              <span>Invite Friends</span>
+            </div>
+
+
+
+
+            <div class="col-md-6">
+                <router-link :to="{name:'invite'}">
+                <div class="card" style="    background: #0b37a67d; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/invite.png'" alt="tab" />
+                        <h5 class="card-title text-white">Invite</h5>
+                    </div>
+                </div>
             </router-link>
-          </div>
+            </div>
+
+
+
+
+
         </div>
       </div>
     </section>
+
+
 
 
 
@@ -66,33 +113,28 @@
 
 
           <div class="col-12 p-0" v-for="plan in row" :key="plan.id">
-            <div class="task me-1 mb-2">
-              <a href="javascript:void(0)" class="plansdesign">
-                <h4 class="planPack"  style="width:20%" >{{ plan.name }}</h4>
-                <div class="vip-area planPack" style="width:40%">
-
-                  <img class="lock" v-if="plan.id==user.user.plan_id" :src="$asseturl + 'frontend/img/unlock.png'" alt="unlocked" />
-
-                  <img class="lock" v-else :src="$asseturl + 'frontend/img/lock.png'" alt="unlocked" />
-
-                  <p>{{ plan.totalorder }} Orders</p>
-                  <img
-                    class="vip"
-                    :src="$asseturl + 'frontend/img/vipLogo.png'"
-                    alt="vip"
-                  />
+            <div class="card" :style="{backgroundColor:generator()}" style="margin-bottom: 20px">
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="card-title text-dark">{{ plan.name }}</h5>
+                    <p class="text-dark">{{ plan.totalorder }} Orders</p>
                 </div>
-                <span class="planPack"  style="width:40%">কমিশন রেট {{ parseFloat(plan.comission_rate*plan.totalorder).toFixed(2) }}% ({{ plan.start_balance }}TK-{{ plan.end_balance }}TK)</span>
-              </a>
+                <div class="card-body">
+                    <span class="planPack text-dark"  style="width:40%">কমিশন রেট {{ parseFloat(plan.comission_rate*plan.totalorder).toFixed(2) }}% ({{ plan.start_balance }}TK-{{ plan.end_balance }}TK)</span>
+
+                </div>
             </div>
+
+
+
+
           </div>
 
-
+<!--
           <div class="col-md-12">
             <h3 class="text-center">Our Partners</h3>
             <hr>
             <img width="100%" :src="$asseturl+'frontend/img/partners.jpeg'" alt="">
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -152,7 +194,9 @@ export default {
         }
     },
     methods: {
-
+        generator(){
+        return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+      },
 
         closeNotice(){
             this.notice = false
