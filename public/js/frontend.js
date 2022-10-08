@@ -2111,6 +2111,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         password: ''
       },
       country: '+880',
+      mobileCode: '',
       errors: {},
       codes: {},
       loadLogin: false
@@ -2150,7 +2151,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.form.mobile = _this2.country;
+                _this2.mobileCode = _this2.country;
 
               case 1:
               case "end":
@@ -2257,6 +2258,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       btndis: true,
       captcha: '',
       genaratedCaptcha: '',
+      mobileCode: null,
       form: {
         country: null,
         name: null,
@@ -2267,7 +2269,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         withdrawpass: '123456',
         ref_by: null
       },
-      usernameMatch: 0,
+      usernameMatch: 1,
       refer: 0,
       errors: {},
       codes: {},
@@ -2349,7 +2351,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.form.mobile = _this3.form.country;
+                // this.form.mobile = this.form.country
+                _this3.mobileCode = _this3.form.country;
 
               case 1:
               case "end":
@@ -2404,9 +2407,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // if(localStorage.getItem('dmdevice')){
       //     Notification.customError(`This device has already have an account!`);
       // }else{
-      if (this.usernameMatch != 2) {
-        Notification.customError('please Enter deferent username');
-      } else {
+      if (this.genaratedCaptcha === this.captcha) {
+        // if(this.usernameMatch!=2){
+        //     Notification.customError('please Enter deferent username');
+        // }else{
         if (this.refer != 1) {
           Notification.customError('Opps,Refer code is Invalid');
         } else {
@@ -2439,7 +2443,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           } else {
             Notification.customError('Password and Confirm password does not match');
           }
-        }
+        } // }
+
+      } else {
+        Notification.customError('Captcha does not match!');
       } // }
 
     }
@@ -2698,24 +2705,68 @@ var render = function render() {
     staticStyle: {
       "font-size": "30px"
     }
-  }, [_vm._v("Welcome")]), _vm._v(" "), _c("h2", {
-    staticClass: "text-center mb-5"
-  }, [_vm._v("Dream Land")]), _vm._v(" "), _c("form", {
+  }, [_vm._v("Welcome")]), _vm._v(" "), _c("form", {
+    staticStyle: {
+      "padding-bottom": "70px"
+    },
     on: {
       submit: function submit($event) {
         $event.preventDefault();
         return _vm.login.apply(null, arguments);
       }
     }
-  }, [_c("div", {
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.country,
+      expression: "country"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      placeholder: "Please Your Country",
+      required: ""
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.country = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.addcountry]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Select")]), _vm._v(" "), _vm._l(_vm.codes, function (code) {
+    return _c("option", {
+      domProps: {
+        value: code.dial_code
+      }
+    }, [_vm._v(_vm._s(code.name))]);
+  })], 2), _vm._v(" "), _c("div", {
     staticClass: "input"
-  }, [_c("input", {
+  }, [_c("span", {
+    staticStyle: {
+      width: "55px",
+      padding: "0px 0px 0px 1px",
+      "margin-left": "44px",
+      "font-size": "16px"
+    }
+  }, [_vm._v(_vm._s(_vm.mobileCode))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.form.mobile,
       expression: "form.mobile"
     }],
+    staticStyle: {
+      "padding-left": "106px"
+    },
     attrs: {
       type: "tel",
       placeholder: "Enter phone number",
@@ -2813,7 +2864,7 @@ var render = function render() {
     attrs: {
       id: "bigbg"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "form"
   }, [_c("div", {
     staticClass: "text-center"
@@ -2831,16 +2882,39 @@ var render = function render() {
     staticStyle: {
       "font-size": "30px"
     }
-  }, [_vm._v("Register")]), _vm._v(" "), _c("h2", {
-    staticClass: "text-center mb-5"
-  }, [_vm._v("Dream Land")]), _vm._v(" "), _c("form", {
+  }, [_vm._v("Register")]), _vm._v(" "), _c("form", {
+    staticStyle: {
+      "padding-bottom": "70px"
+    },
     on: {
       submit: function submit($event) {
         $event.preventDefault();
         return _vm.register.apply(null, arguments);
       }
     }
-  }, [_c("select", {
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.name,
+      expression: "form.name"
+    }],
+    attrs: {
+      type: "text",
+      placeholder: "Please enter Name",
+      required: ""
+    },
+    domProps: {
+      value: _vm.form.name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.form, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2874,65 +2948,14 @@ var render = function render() {
         value: code.dial_code
       }
     }, [_vm._v(_vm._s(code.name))]);
-  })], 2), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.name,
-      expression: "form.name"
-    }],
-    attrs: {
-      type: "text",
-      placeholder: "Please enter Name",
-      required: ""
-    },
-    domProps: {
-      value: _vm.form.name
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.form, "name", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _vm.usernameMatch == 0 ? _c("span", {
-    staticStyle: {
-      color: "red"
-    }
-  }, [_vm._v("Username Field is Required!")]) : _vm.usernameMatch == 1 ? _c("span", {
-    staticStyle: {
-      color: "red"
-    }
-  }, [_vm._v("Opps,Username Already exist,please Enter deferent username")]) : _vm.usernameMatch == 2 ? _c("span", {
-    staticStyle: {
-      color: "green"
-    }
-  }, [_vm._v("Congratulations,Username is Available")]) : _vm._e(), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.username,
-      expression: "form.username"
-    }],
-    attrs: {
-      type: "text",
-      placeholder: "Please enter username",
-      required: ""
-    },
-    domProps: {
-      value: _vm.form.username
-    },
-    on: {
-      input: [function ($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.form, "username", $event.target.value);
-      }, _vm.usernamecheck]
-    }
-  }), _vm._v(" "), _c("div", {
+  })], 2), _vm._v(" "), _c("div", {
     staticClass: "tel"
-  }, [_c("input", {
+  }, [_c("span", {
+    staticStyle: {
+      width: "55px",
+      padding: "1px 0px 0 4px"
+    }
+  }, [_vm._v(_vm._s(_vm.mobileCode))]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2940,7 +2963,8 @@ var render = function render() {
       expression: "form.mobile"
     }],
     staticStyle: {
-      "text-align": "left !important"
+      "text-align": "left !important",
+      "padding-left": "50px"
     },
     attrs: {
       type: "tel",
@@ -3101,49 +3125,20 @@ var render = function render() {
       "fa-eye-slash": _vm.CshowPassword,
       "fa-eye": !_vm.CshowPassword
     }
-  })])])]), _vm._v(" "), _vm.refer == 0 ? _c("span", {
-    staticStyle: {
-      color: "red"
-    }
-  }, [_vm._v("Refer Code Field is Required!")]) : _vm.refer == 1 ? _c("span", {
-    staticStyle: {
-      color: "green"
-    }
-  }, [_vm._v("Congratulations,Refer code is Valid")]) : _vm.refer == 2 ? _c("span", {
-    staticStyle: {
-      color: "red"
-    }
-  }, [_vm._v("Opps,Refer code is Invalid")]) : _vm._e(), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.form.ref_by,
-      expression: "form.ref_by"
-    }],
-    attrs: {
-      type: "test",
-      placeholder: "Please enter recommendation code",
-      required: ""
-    },
-    domProps: {
-      value: _vm.form.ref_by
-    },
-    on: {
-      input: [function ($event) {
-        if ($event.target.composing) return;
-
-        _vm.$set(_vm.form, "ref_by", $event.target.value);
-      }, _vm.refercheck]
-    }
-  }), _vm._v(" "), _c("input", {
+  })])])]), _vm._v(" "), _c("div", {
+    staticClass: "d-flex position-relative"
+  }, [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: _vm.captcha,
       expression: "captcha"
     }],
+    staticClass: "contact-frm active",
     attrs: {
-      type: "text"
+      type: "text",
+      required: "true",
+      placeholder: "Enter Captcha"
     },
     domProps: {
       value: _vm.captcha
@@ -3154,15 +3149,22 @@ var render = function render() {
         _vm.captcha = $event.target.value;
       }
     }
-  }), _vm._v("\n\n" + _vm._s(_vm.genaratedCaptcha) + "\n\n\n\n\n      "), _c("button", {
-    staticClass: "button",
-    attrs: {
-      disabled: _vm.btndis
+  }), _vm._v(" "), _c("button", {
+    staticClass: "button position-absolute top-15 end-0",
+    staticStyle: {
+      background: "#1250c3",
+      border: "0px",
+      color: "white"
     },
-    on: {
-      click: _vm.clicked
+    attrs: {
+      type: "button"
     }
-  }, [_vm._v("Submit")]), _vm._v(" "), _c("input", {
+  }, [_c("span", {
+    staticClass: "icon is-small is-right",
+    staticStyle: {
+      "font-size": "25px"
+    }
+  }, [_vm._v("\n                            " + _vm._s(_vm.genaratedCaptcha) + "\n                        ")])])]), _vm._v(" "), _c("input", {
     staticClass: "checkbox",
     attrs: {
       type: "checkbox",
@@ -3175,6 +3177,7 @@ var render = function render() {
       value: "register"
     }
   }), _vm._v(" "), _c("router-link", {
+    staticClass: "reg",
     attrs: {
       to: {
         name: "/login"
@@ -3183,18 +3186,7 @@ var render = function render() {
   }, [_vm._v("You have an account. Log in now")])], 1)])]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("a", {
-    attrs: {
-      href: "login.html"
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-angle-left"
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

@@ -10,9 +10,22 @@
         </div>
 
         <h2 class="text-center" style="font-size:30px">Welcome</h2>
-        <h2 class="text-center mb-5">Dream Land</h2>
-        <form @submit.prevent='login'>
-           <div class="input"> <input type="tel" placeholder="Enter phone number" v-model="form.mobile" required><span><img :src="$asseturl+'frontend/img/user.png'" ></span></div>
+
+        <form @submit.prevent='login' style="padding-bottom: 70px;">
+            <select v-model="country" class="form-control" placeholder="Please Your Country"
+                    @change="addcountry" required>
+                    <option value="">Select</option>
+                    <option v-for="code in codes" :value="code.dial_code">{{ code.name }}</option>
+                </select>
+
+
+           <div class="input">
+            <span style="    width: 55px;
+    padding: 0px 0px 0px 1px;
+    margin-left: 44px;
+    font-size: 16px;">{{ mobileCode }}</span>
+
+            <input type="tel" style="padding-left: 106px;" placeholder="Enter phone number" v-model="form.mobile" required><span><img :src="$asseturl+'frontend/img/user.png'" ></span></div>
            <div class="input"> <input type="password" placeholder="Enter Password" v-model="form.password" required><span><img :src="$asseturl+'frontend/img/pass.png'" ></span></div>
            <!-- <input type="checkbox" class="checkbox" > <span> Remember Me</span> -->
 
@@ -60,6 +73,7 @@ export default {
 				password: ''
 			},
 			country:'+880',
+            mobileCode:'',
 			errors:{},
 			codes:{},
             loadLogin:false
@@ -74,7 +88,7 @@ export default {
             this.codes = res.data
         },
         async addcountry() {
-            this.form.mobile = this.country
+            this.mobileCode = this.country
         },
 
         login() {

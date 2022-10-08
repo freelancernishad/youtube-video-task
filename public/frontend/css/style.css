@@ -282,7 +282,7 @@ list-style: none;
 #bigbg {
 	background: rgb(101, 156, 255) url("../img/accountBg.png") no-repeat;
 	background-size: cover;
-	padding-top: 180px;
+	/* padding-top: 180px; */
 	background-attachment: fixed;
 	min-height: 100vh;
 }
@@ -332,7 +332,7 @@ list-style: none;
 .form {
 	background: #ffffffdb;
 	padding: 27px;
-	border-radius: .8rem .8rem 0 0;
+	/* border-radius: .8rem .8rem 0 0; */
 	height: 100vh;
 }
 
