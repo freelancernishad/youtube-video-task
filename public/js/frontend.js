@@ -2234,11 +2234,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {
-    // if (User.loggedIn()) {
+    this.genaratedCaptcha = Math.random().toString(36).substring(2, 6 + 2); // if (User.loggedIn()) {
     //     this.$router.push({ name: 'home' })
     // }
     // localStorage.setItem('dmdevice',1)
     // console.log(this.$route.query.ref);
+
     if (this.$route.query.ref) {
       this.form.ref_by = this.$route.query.ref;
       this.refer = 1;
@@ -2253,6 +2254,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      btndis: true,
+      captcha: '',
+      genaratedCaptcha: '',
       form: {
         country: null,
         name: null,
@@ -3132,6 +3136,33 @@ var render = function render() {
       }, _vm.refercheck]
     }
   }), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.captcha,
+      expression: "captcha"
+    }],
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.captcha
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.captcha = $event.target.value;
+      }
+    }
+  }), _vm._v("\n\n" + _vm._s(_vm.genaratedCaptcha) + "\n\n\n\n\n      "), _c("button", {
+    staticClass: "button",
+    attrs: {
+      disabled: _vm.btndis
+    },
+    on: {
+      click: _vm.clicked
+    }
+  }, [_vm._v("Submit")]), _vm._v(" "), _c("input", {
     staticClass: "checkbox",
     attrs: {
       type: "checkbox",

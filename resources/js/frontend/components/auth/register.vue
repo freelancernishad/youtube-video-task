@@ -91,6 +91,20 @@
                 <span style="color:red" v-else-if="refer==2">Opps,Refer code is Invalid</span>
 
                 <input type="test" v-model="form.ref_by" placeholder="Please enter recommendation code" @input="refercheck" required >
+
+    <input type="text" v-model="captcha">
+
+{{ genaratedCaptcha }}
+
+
+
+
+      <button class="button" v-bind:disabled="btndis" v-on:click="clicked">Submit</button>
+
+
+
+
+
                 <input type="checkbox" class="checkbox" checked> <span> I am aware of and agree to the terms of the
                     account opening agreement</span>
                 <input type="submit" value="register" class="submit">
@@ -103,9 +117,17 @@
 </template>
 
 <script>
+
+
+
 export default {
 
     created() {
+
+
+        this.genaratedCaptcha =  Math.random().toString(36).substring(2,6+2);
+
+
         // if (User.loggedIn()) {
         //     this.$router.push({ name: 'home' })
         // }
@@ -128,6 +150,9 @@ this.form.country = '+880'
 
     data() {
         return {
+            btndis: true,
+            captcha: '',
+            genaratedCaptcha: '',
             form: {
                 country: null,
                 name: null,
@@ -152,6 +177,9 @@ this.form.country = '+880'
 
 
     methods: {
+
+
+
 
        async usernamecheck(){
 
