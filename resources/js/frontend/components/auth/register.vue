@@ -2,17 +2,25 @@
     <section id="bigbg">
 
         <div class="form">
+
+
+
+<div style="width:100%;overflow: hidden;">
+<div class="languagechange">
+<LanguageComponent/>
+</div>
+</div>
             <div class="text-center">
                 <img style="width: 46px;float: center;" :src="$asseturl+'frontend/img/logos.png'" alt="">
             </div>
-            <h2 class="text-center" style="font-size:30px">Register</h2>
-   
+            <h2 class="text-center" style="font-size:30px">{{ $t('Register.value') }}</h2>
+
             <form @submit.prevent='register' style="padding-bottom: 70px;">
 
-                <input type="text" v-model="form.name" placeholder="Please enter Name" required></input>
+                <input type="text" v-model="form.name" :placeholder="$t('Please_enter_Name.value')" required></input>
 
                 <!-- <input type="text" v-model="form.country" placeholder="Please Your Country" required> -->
-                <select v-model="form.country" class="form-control" placeholder="Please Your Country"
+                <select v-model="form.country" class="form-control" :placeholder="$t('Please_select_Your_Country.value')"
                     @change="addcountry" required>
                     <option value="">Select</option>
                     <option v-for="code in codes" :value="code.dial_code">{{ code.name }}</option>
@@ -29,7 +37,7 @@
                     <span style="width: 55px;padding: 1px 0px 0 4px;">{{ mobileCode }}</span>
 
                     <input type="tel" style="text-align: left !important;padding-left: 50px;" v-model="form.mobile"
-                        placeholder="Please enter a 11-digit phone number" required>
+                        :placeholder="$t('Please_enter_a_10_digit_phone_number.value')" required>
                     <!-- <span style="width:10%">+880</span> -->
                 </div>
 
@@ -38,9 +46,9 @@
 
                 <div class="d-flex position-relative">
                     <input type="password" v-if="showPassword" name="password" v-model="form.password" required="true"
-                        placeholder="Please enter login password" class="contact-frm active">
+                    :placeholder="$t('Please_enter_login_password.value')" class="contact-frm active">
                     <input type="text" v-else v-model="form.password" name="password" required="true"
-                        placeholder="Please enter login password" class="contact-frm active">
+                    :placeholder="$t('Please_enter_login_password.value')" class="contact-frm active">
                     <button class="button position-absolute top-15 end-0" type="button"
                         style="background: transparent;border: 0;"
                         @click="showPassword ? showPassword = false : showPassword = true"><span
@@ -51,9 +59,9 @@
                 </div>
                 <div class="d-flex position-relative">
                     <input type="password" v-if="CshowPassword" name="password" v-model="form.password_confirmation"
-                        required="true" placeholder="Confirm login password" class="contact-frm active">
+                        required="true" :placeholder="$t('Confirm_login_password.value')" class="contact-frm active">
                     <input type="text" v-else v-model="form.password_confirmation" name="password" required="true"
-                        placeholder="Confirm login password" class="contact-frm active">
+                    :placeholder="$t('Confirm_login_password.value')" class="contact-frm active">
                     <button class="button position-absolute top-15 end-0" type="button"
                         style="background: transparent;border: 0;"
                         @click="CshowPassword ? CshowPassword = false : CshowPassword = true"><span
@@ -83,7 +91,7 @@
                 <span style="color:red" v-else-if="refer==2">Opps,Refer code is Invalid</span>
                 <input type="test" v-model="form.ref_by" placeholder="Please enter recommendation code" @input="refercheck" required > -->
                 <div class="d-flex position-relative">
-                    <input type="text" v-model="captcha" required="true" placeholder="Enter Captcha"
+                    <input type="text" v-model="captcha" required="true" :placeholder="$t('Enter_Captcha.value')"
                         class="contact-frm active">
                     <button class="button position-absolute top-15 end-0" type="button"
                         style="    background: #1250c3; border: 0px; color: white;">
@@ -93,11 +101,10 @@
                     </button>
                 </div>
                 <!-- <button class="button" v-bind:disabled="btndis" v-on:click="clicked">Submit</button> -->
-                <input type="checkbox" class="checkbox" checked> <span> I am aware of and agree to the terms of the
-                    account opening agreement</span>
-                <input type="submit" value="register" class="submit">
+                <input type="checkbox" class="checkbox" checked> <span> {{ $t('Rgis_Terms.value') }}</span>
+                <input type="submit" :value="$t('Register.value')" class="submit">
 
-                <router-link :to="{name:'/login'}" class="reg">You have an account. Log in now</router-link>
+                <router-link :to="{name:'/login'}" class="reg">{{ $t('Rgis_Login.value') }}</router-link>
 
                 <!-- <router-link :to="{name:'/login'}">You have an account. Log in now</router-link> -->
             </form>
@@ -105,6 +112,7 @@
     </section>
 </template>
 <script>
+
 export default {
     created() {
         this.genaratedCaptcha = Math.random().toString(36).substring(2, 6 + 2);
@@ -126,6 +134,8 @@ export default {
     },
     data() {
         return {
+
+
             btndis: true,
             captcha: '',
             genaratedCaptcha: '',
@@ -150,6 +160,11 @@ export default {
         }
     },
     methods: {
+        // setLang(){
+        //     localStorage.setItem('language',this.$i18n.locale)
+        // },
+
+
         async usernamecheck() {
             if (this.form.username == '') {
                 this.usernameMatch = 0;
@@ -231,6 +246,11 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+
+.languagechange {
+    width: 100px;
+    float: right;
+}
 button.button {
     padding: 7px 5px;
 }

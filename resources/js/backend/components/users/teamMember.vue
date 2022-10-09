@@ -3,7 +3,8 @@
     <section id="topbar">
       <div class="title">
         <a href="javascript:void(0)" @click="$router.go(-1)"><i class="fa fa-angle-left"></i></a>
-        <p>Team Report</p>
+        <p>{{ $t('Team_Report.value') }}</p>
+        <LanguageComponent/>
       </div>
     </section>
     <section id="listmenus">

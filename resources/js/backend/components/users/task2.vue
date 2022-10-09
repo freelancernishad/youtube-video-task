@@ -8,6 +8,7 @@
         <section id="topbar">
             <div class="title">
                 <p>Orders</p>
+                <LanguageComponent/>
                 <router-link :to="{name:'orders'}"><img :src="$asseturl + 'frontend/img/tasks.png'" alt="logo"></router-link>
             </div>
         </section>

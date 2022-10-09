@@ -10,7 +10,9 @@ export default {
         }
     },
     methods: {
-
+        setLang(){
+            localStorage.setItem('language',this.$i18n.locale)
+        },
         async callApi(method, url, dataObj){
 
             this.Frontloader = true

@@ -2145,6 +2145,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
+    setLang: function setLang() {
+      localStorage.setItem('language', this.$i18n.locale);
+    },
     callApi: function callApi(method, url, dataObj) {
       var _this = this;
 

@@ -5,7 +5,8 @@
         <section id="topbar">
             <div class="title">
                 <a href="javascript:void(0)" @click="$router.go(-1)"><i class="fa fa-angle-left"></i></a>
-                <p>Recharge</p>
+                <p>{{ $t('Recharge.value') }}</p>
+                <LanguageComponent/>
             </div>
         </section>
 
@@ -18,7 +19,7 @@
 
 
                         <div class="form-group">
-                            <label for="">Recharge Amount</label>
+                            <label for="">{{ $t('Recharge_Amount.value') }}</label>
                             <input type="tel" class="form-control" v-model="form.amount" >
                         </div>
 

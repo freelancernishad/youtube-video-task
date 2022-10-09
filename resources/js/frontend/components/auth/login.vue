@@ -3,13 +3,28 @@
 
  <section id="bigbg">
 
+
     <div class="form login">
+
+<div style="width:100%;overflow: hidden;">
+
+
+    <div class="languagechange">
+        <LanguageComponent/>
+</div>
+</div>
+
+
+
+
+
+
         <div class="text-center">
 
             <img style="width: 46px;float: center;" :src="$asseturl+'frontend/img/logos.png'" alt="">
         </div>
 
-        <h2 class="text-center" style="font-size:30px">Welcome</h2>
+        <h2 class="text-center" style="font-size:30px">{{ $t('Welcome.value') }}</h2>
 
         <form @submit.prevent='login' style="padding-bottom: 70px;">
             <select v-model="country" class="form-control" placeholder="Please Your Country"
@@ -25,22 +40,23 @@
     margin-left: 44px;
     font-size: 16px;">{{ mobileCode }}</span>
 
-            <input type="tel" style="padding-left: 106px;" placeholder="Enter phone number" v-model="form.mobile" required><span><img :src="$asseturl+'frontend/img/user.png'" ></span></div>
-           <div class="input"> <input type="password" placeholder="Enter Password" v-model="form.password" required><span><img :src="$asseturl+'frontend/img/pass.png'" ></span></div>
+            <input type="tel" style="padding-left: 106px;" :placeholder="$t('Enter_phone_number.value')" v-model="form.mobile" required><span><img :src="$asseturl+'frontend/img/user.png'" ></span></div>
+           <div class="input"> <input type="password" :placeholder="$t('Enter_Password.value')" v-model="form.password" required><span><img :src="$asseturl+'frontend/img/pass.png'" ></span></div>
            <!-- <input type="checkbox" class="checkbox" > <span> Remember Me</span> -->
 
 
            <!-- <input type="submit" value="Login" class="submit"> -->
 
 
-           <input id="form-submit" type="button" v-if="loadLogin" value="Looding....."
+           <input id="form-submit" type="button" v-if="loadLogin" :value="$t('Loader.value')"
            class="submit">
-            <input id="form-submit" type="submit" v-else value="LOGIN NOW" class="submit">
+            <input id="form-submit" type="submit" v-else :value="$t('Login.value')" class="submit">
 
 
 
 
-<router-link :to="{name:'register'}" class="reg">Register</router-link>
+
+<router-link :to="{name:'register'}" class="reg">{{ $t('Register.value') }}</router-link>
         </form>
     </div>
 </section>
@@ -61,6 +77,8 @@ export default {
 
 	data () {
 		return {
+
+
 
             emailLogin: "",
             passwordLogin: "",
@@ -165,7 +183,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.languagechange {
+    width: 100px;
+    float: right;
+}
 section.vh-100 {
     position: absolute;
     top: 50%;

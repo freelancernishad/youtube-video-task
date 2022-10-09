@@ -5,7 +5,8 @@
         <section id="topbar">
             <div class="title">
                 <a href="javascript:void(0)" @click="$router.go(-1)" ><i class="fa fa-angle-left"></i></a>
-                <p>My Account</p>
+                <p>{{ $t('My_Account.value') }}</p>
+                <LanguageComponent/>
             </div>
         </section>
 
@@ -15,15 +16,15 @@
                 <div class="col-md-6">
 
 
-                            <h6 class="card-title">Name : {{ row.user.name }}</h6>
-                            <h6 class="card-title">Plan : {{ row.plans.name }}</h6>
-                            <h6 class="card-title">Invitation code : {{ row.user.username }}</h6>
+                            <h6 class="card-title">{{ $t('Name.value') }} : {{ row.user.name }}</h6>
+                            <h6 class="card-title">{{ $t('Plan.value') }} : {{ row.plans.name }}</h6>
+                            <h6 class="card-title">{{ $t('Invitation_code.value') }} : {{ row.user.username }}</h6>
 
                 </div>
                 <div class="col-md-6">
 
-                            <h6 class="card-title">Task income : {{ parseFloat(row.taskearn).toFixed(2) }}</h6>
-                            <h6 class="card-title">Balance : {{ parseFloat(row.user.balance).toFixed(2) }}</h6>
+                            <h6 class="card-title">{{ $t('Task_income.value') }} : {{ parseFloat(row.taskearn).toFixed(2) }}</h6>
+                            <h6 class="card-title">{{ $t('Balance.value') }} : {{ parseFloat(row.user.balance).toFixed(2) }}</h6>
 
 
                 </div>
@@ -37,8 +38,8 @@
         <section id="btn-area">
 
             <div class="row">
-                <div class="col-6 p-0"> <router-link :to="{name:'Recharge'}">Recharge</router-link></div>
-                <div class="col-6 p-0"> <router-link :to="{name:'Withdraw'}">Withdraw</router-link></div>
+                <div class="col-6 p-0"> <router-link :to="{name:'Recharge'}">{{ $t('Recharge.value') }}</router-link></div>
+                <div class="col-6 p-0"> <router-link :to="{name:'Withdraw'}">{{ $t('Withdraw.value') }}</router-link></div>
             </div>
 
 
@@ -48,39 +49,39 @@
 
                 <ul>
                     <li><router-link :to="{name:'license'}" class="accountList listCompanny" ><img src="https://petpat.lv/wp-content/uploads/2018/12/license-icon-27934542-2.png">
-                            <p>Company Profiles</p></router-link>
+                            <p>{{ $t('Company_Profile.value') }}</p></router-link>
                     </li>
 
                     <li><router-link :to="{name:'information'}" class="accountList listInformaion"><img :src="$asseturl+'frontend/img/inf.png'">
-                            <p>Information</p>
+                            <p>{{ $t('Information.value') }}</p>
                         </router-link></li>
                     <li><router-link :to="{name:'orders'}" class="accountList listorder"><img :src="$asseturl+'frontend/img/order.png'">
-                            <p>Order Record</p>
+                            <p>{{ $t('Order_Record.value') }}</p>
                         </router-link></li>
                     <li><router-link :to="{name:'rechargeHistory'}" class="accountList listReHis"><img :src="$asseturl+'frontend/img/rech.png'">
-                            <p>Recharge History</p>
+                            <p>{{ $t('Recharge_History.value') }}</p>
                         </router-link></li>
                     <li><router-link :to="{name:'WithdrawHistory'}" class="accountList listWithHis"><img :src="$asseturl+'frontend/img/with.png'">
-                            <p>Withdraw History</p>
+                            <p>{{ $t('Withdraw_History.value') }}</p>
                         </router-link></li>
                     <!-- <li><router-link :to="{name:'help'}"><img :src="$asseturl+'frontend/img/ann.png'">
                             <p>Announcement</p>
                         </router-link></li> -->
 
                     <li><router-link :to="{name:'invite'}" class="accountList listInvite"><img :src="$asseturl+'frontend/img/5811623.png'">
-                            <p>Invite</p>
+                            <p>{{ $t('Invite.value') }}</p>
                         </router-link></li>
 
                     <li><a href="https://t.me/+iO84tmrv8JNkZTRl" class="accountList listTeleGroup" target="_blank"><img :src="$asseturl+'frontend/img/Telegram.png'">
-                            <p>Official Telegram Group</p>
+                            <p>{{ $t('Official_Telegram_Group.value') }}</p>
                         </a></li>
 
                     <li><a href="https://t.me/DreamlandCustomersurvice" class="accountList listCus1" target="_blank"><img :src="$asseturl+'frontend/img/aGroup.jpeg'">
-                            <p>Customer Service 1</p></a>
+                            <p>{{ $t('Customer_Service.value') }} 1</p></a>
                     </li>
 
                     <li><a href="https://t.me/Dreamland_Millye" class="accountList listCus2" target="_blank"><img src="https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg">
-                            <p>Customer Service 2</p></a>
+                            <p>{{ $t('Customer_Service.value') }} 2</p></a>
                     </li>
 
 
@@ -95,7 +96,7 @@
 
 
                 </ul>
-                <router-link :to="{name:'logout'}" class="logout">Log out</router-link>
+                <router-link :to="{name:'logout'}" class="logout">{{ $t('Log_out.value') }}</router-link>
             <!-- </div> -->
 
 

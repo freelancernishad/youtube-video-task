@@ -3,13 +3,20 @@
 
 
 
- 
+    <section id="topbar">
+            <div class="title">
+                <a href="javascript:void(0)" @click="$router.go(-1)"></a>
+                <p></p>
+                <LanguageComponent/>
+            </div>
+        </section>
 
 
 <!--
     <section id="slider">
         <img width="100%" :src="slideimage" alt="">
     </section> -->
+
 
     <section id="marquee">
       <div class="container-fluid">
@@ -45,7 +52,7 @@
                 <div class="card" style="    background: #afaf0b80; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/recharge.png'" alt="tab" />
-                        <h5 class="card-title text-white">Recharge</h5>
+                        <h5 class="card-title text-white">{{ $t('Recharge.value') }}</h5>
                     </div>
                 </div>
             </router-link>
@@ -59,7 +66,7 @@
                 <div class="card" style="    background: #960baf80; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/withdraw.png'" alt="tab" />
-                        <h5 class="card-title text-white">Withdraw</h5>
+                        <h5 class="card-title text-white">{{ $t('Withdraw.value') }}</h5>
                     </div>
                 </div>
             </router-link>
@@ -73,7 +80,7 @@
                 <div class="card" style="    background: #0baf4a80; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/companyprofile.png'" alt="tab" />
-                        <h5 class="card-title text-white">Company Profile</h5>
+                        <h5 class="card-title text-white">{{ $t('Company_Profile.value') }}</h5>
                     </div>
                 </div>
             </router-link>
@@ -87,7 +94,7 @@
                 <div class="card" style="    background: #0b37a67d; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/invite.png'" alt="tab" />
-                        <h5 class="card-title text-white">Invite</h5>
+                        <h5 class="card-title text-white">{{ $t('Invite.value') }}</h5>
                     </div>
                 </div>
             </router-link>
@@ -222,6 +229,13 @@ export default {
 }
 </script>
 <style>
+
+section#topbar .title {
+    display: flex !important;
+    justify-content: space-between;
+    padding: 0 18px;
+}
+
 #marquee {
   margin: 24px 0;
 }

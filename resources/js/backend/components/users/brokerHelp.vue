@@ -7,6 +7,7 @@
         <div class="title">
           <a href="javascript:void(0)" @click="$router.go(-1)" ><i class="fa fa-angle-left"></i></a>
             <p>দল আয় বৃদ্ধি সহযোগিতা</p>
+            <LanguageComponent/>
         </div>
     </section>
 

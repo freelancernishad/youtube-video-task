@@ -5,7 +5,8 @@
         <section id="topbar">
             <div class="title">
                        <a href="javascript:void(0)" @click="$router.go(-1)" ><i class="fa fa-angle-left"></i></a>
-                <p>Team Report</p>
+                <p>{{ $t('Team_Report.value') }}</p>
+                <LanguageComponent/>
             </div>
         </section>
 
@@ -13,27 +14,27 @@
             <div class="details">
                 <div class="container">
                     <div class="detail">
-                        <p>Total of Recharge</p>
+                        <p>{{ $t('Total_of_Recharge.value') }}</p>
                         <span>{{ row.depositamount }}</span>
                     </div>
                     <div class="detail">
-                        <p>Direct Invites</p>
+                        <p>{{ $t('Direct_Invites.value') }}</p>
                         <span>{{ row.Direct_Invites }}</span>
                     </div>
                     <div class="detail">
-                        <p>Members</p>
+                        <p>{{ $t('Members.value') }}</p>
                         <span>{{ row.total_member }}</span>
                     </div>
                     <div class="detail">
-                        <p>Active Members</p>
+                        <p>{{ $t('Active_Members.value') }}</p>
                         <span>{{ row.total_ActiveMember }}</span>
                     </div>
                     <div class="detail">
-                        <p> Team task bonus </p>
+                        <p> {{ $t('Team_task_bonus.value') }} </p>
                         <span>{{ parseFloat(row.refer_task_bonus).toFixed(2)  }}</span>
                     </div>
                     <div class="detail">
-                        <p> Team Recharge Bonus </p>
+                        <p> {{ $t('Team_Recharge_Bonus.value') }} </p>
                         <span>{{ parseFloat(row.refer_commisition).toFixed(2)  }}</span>
                     </div>
 
