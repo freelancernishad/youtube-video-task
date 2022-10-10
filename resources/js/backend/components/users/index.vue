@@ -120,13 +120,13 @@
 
 
           <div class="col-12 p-0" v-for="plan in row" :key="plan.id">
-            <div class="card" :style="{backgroundColor:generator()}" style="margin-bottom: 20px">
+            <div class="card" :style="{backgroundColor:'#163aaa'}" style="margin-bottom: 20px">
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title text-dark">{{ plan.name }}</h5>
-                    <p class="text-dark">{{ plan.totalorder }} Orders</p>
+                    <h5 class="card-title text-white">{{ plan.name }}</h5>
+                    <p class="text-white">{{ plan.totalorder }} Orders</p>
                 </div>
                 <div class="card-body">
-                    <span class="planPack text-dark"  style="width:40%">কমিশন রেট {{ parseFloat(plan.comission_rate*plan.totalorder).toFixed(2) }}% ({{ plan.start_balance }}TK-{{ plan.end_balance }}TK)</span>
+                    <span class="planPack text-white"  style="width:40%">কমিশন রেট {{ parseFloat(plan.comission_rate*plan.totalorder).toFixed(2) }}% ({{ plan.start_balance }}TK-{{ plan.end_balance }}TK)</span>
 
                 </div>
             </div>

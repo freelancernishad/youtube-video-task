@@ -48,39 +48,39 @@
             <!-- <div class="container-fluid"> -->
 
                 <ul>
-                    <li><router-link :to="{name:'license'}" class="accountList listCompanny" ><img src="https://petpat.lv/wp-content/uploads/2018/12/license-icon-27934542-2.png">
+                    <li><router-link :to="{name:'license'}" class="accountList odd listCompanny " ><img src="https://petpat.lv/wp-content/uploads/2018/12/license-icon-27934542-2.png">
                             <p>{{ $t('Company_Profile.value') }}</p></router-link>
                     </li>
 
-                    <li><router-link :to="{name:'information'}" class="accountList listInformaion"><img :src="$asseturl+'frontend/img/inf.png'">
+                    <li><router-link :to="{name:'information'}" class="accountList even listInformaion"><img :src="$asseturl+'frontend/img/inf.png'">
                             <p>{{ $t('Information.value') }}</p>
                         </router-link></li>
-                    <li><router-link :to="{name:'orders'}" class="accountList listorder"><img :src="$asseturl+'frontend/img/order.png'">
+                    <li><router-link :to="{name:'orders'}" class="accountList odd listorder"><img :src="$asseturl+'frontend/img/order.png'">
                             <p>{{ $t('Order_Record.value') }}</p>
                         </router-link></li>
-                    <li><router-link :to="{name:'rechargeHistory'}" class="accountList listReHis"><img :src="$asseturl+'frontend/img/rech.png'">
+                    <li><router-link :to="{name:'rechargeHistory'}" class="accountList even listReHis"><img :src="$asseturl+'frontend/img/rech.png'">
                             <p>{{ $t('Recharge_History.value') }}</p>
                         </router-link></li>
-                    <li><router-link :to="{name:'WithdrawHistory'}" class="accountList listWithHis"><img :src="$asseturl+'frontend/img/with.png'">
+                    <li><router-link :to="{name:'WithdrawHistory'}" class="accountList odd listWithHis"><img :src="$asseturl+'frontend/img/with.png'">
                             <p>{{ $t('Withdraw_History.value') }}</p>
                         </router-link></li>
                     <!-- <li><router-link :to="{name:'help'}"><img :src="$asseturl+'frontend/img/ann.png'">
                             <p>Announcement</p>
                         </router-link></li> -->
 
-                    <li><router-link :to="{name:'invite'}" class="accountList listInvite"><img :src="$asseturl+'frontend/img/5811623.png'">
+                    <li><router-link :to="{name:'invite'}" class="accountList even listInvite"><img :src="$asseturl+'frontend/img/5811623.png'">
                             <p>{{ $t('Invite.value') }}</p>
                         </router-link></li>
 
-                    <li><a href="https://t.me/+iO84tmrv8JNkZTRl" class="accountList listTeleGroup" target="_blank"><img :src="$asseturl+'frontend/img/Telegram.png'">
+                    <li><a href="https://t.me/+iO84tmrv8JNkZTRl" class="accountList odd listTeleGroup" target="_blank"><img :src="$asseturl+'frontend/img/Telegram.png'">
                             <p>{{ $t('Official_Telegram_Group.value') }}</p>
                         </a></li>
 
-                    <li><a href="https://t.me/DreamlandCustomersurvice" class="accountList listCus1" target="_blank"><img :src="$asseturl+'frontend/img/aGroup.jpeg'">
+                    <li><a href="https://t.me/DreamlandCustomersurvice" class="accountList even listCus1" target="_blank"><img :src="$asseturl+'frontend/img/aGroup.jpeg'">
                             <p>{{ $t('Customer_Service.value') }} 1</p></a>
                     </li>
 
-                    <li><a href="https://t.me/Dreamland_Millye" class="accountList listCus2" target="_blank"><img src="https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg">
+                    <li><a href="https://t.me/Dreamland_Millye" class="accountList odd listCus2" target="_blank"><img src="https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg">
                             <p>{{ $t('Customer_Service.value') }} 2</p></a>
                     </li>
 
@@ -150,7 +150,17 @@ a.accountList {
     color: white !important;
 }
 
+a.accountList.odd {
+    background: #003cff !important;
+}
 
+a.accountList.even {
+    background: #af5016 !important;
+}
+
+
+
+/*
 a.accountList.listCompanny {
     background: #af1616 !important;
 }
@@ -228,7 +238,7 @@ a.accountList.listTeleGroup:hover {
 
 a.accountList.listCus2:hover {
     background: #97cc1a !important;
-}
+} */
 
 
 

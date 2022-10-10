@@ -5,7 +5,7 @@
         <section id="topbar">
             <div class="title">
                 <a href="javascript:void(0)" @click="$router.go(-1)"><i class="fa fa-angle-left"></i></a>
-                <p>Withdraw History</p>
+                <p>{{ $t('Withdraw_History.value') }}</p>
                 <LanguageComponent/>
             </div>
         </section>
@@ -21,15 +21,15 @@
                 <div class="recordDiv col-md-6" v-for="rech in row" :key="'rech'+rech.id">
                     <div class="card text-dark" :style="{backgroundColor:generator()}" style="margin-bottom: 20px">
                         <div class="card-header">
-                            <h5 class="card-title">Withdraw amount： {{ rech.amount }} </h5>
+                            <h5 class="card-title">{{ $t('Recharge_amount.value') }} {{ rech.amount }} </h5>
                         </div>
                         <div class="card-body">
-                            <p>Order Number： {{ rech.trx }}</p>
-                    <p>Withdraw status： {{ rech.status }}</p>
-                    <p>Date： {{ dateformatglobal(rech.created_at)[6] }}</p>
+                            <p>{{ $t('Order_Number.value') }} : {{ rech.trx }}</p>
+                    <p>{{ $t('Recharge_status.value') }} :  {{ rech.status }}</p>
+                    <p>{{ $t('Date.value') }} : {{ dateformatglobal(rech.created_at)[6] }}</p>
                         </div>
                         <div class="card-footer">
-                            <p>Remarks： - {{ rech.admin_feedback }}</p>
+                            <p>{{ $t('Remarks.value') }} :- {{ rech.admin_feedback }}</p>
                         </div>
                     </div>
                 </div>

@@ -11,14 +11,13 @@
             </div>
         </section>
 
-        <section id="listmenu" class="info">
+        <section id="listmenus" class="info">
             <div class="container-fluid">
                 <ul>
                     <!-- <li><img src="img/users.png" class="icon"> Avatar <img src="img/11.png" class="userimg"></li> -->
-                    <li><a href="javascript:void(0)"><img src="img/ph.png" class="icon"> Mobile Number <span>{{ row.user.mobile }}</span> </a></li>
-                    <li><router-link :to="{name:'bankAccount'}"><img src="img/wa.png" class="icon"> Bank Card <span> **** ****
-                                **** </span></router-link> </li>
-                    <li><router-link :to="{name:'RechangePass'}"><img src="img/passs.png" class="icon"> Password Management </router-link>
+                    <!-- <li><a href="javascript:void(0)"><img src="img/ph.png" class="icon"> Mobile Number <span>{{ row.user.mobile }}</span> </a></li> -->
+                    <li><router-link :to="{name:'bankAccount'}"><img src="img/wa.png" class="icon"> {{ $t('Bank_Card.value') }} <span>  </span></router-link> </li>
+                    <li><router-link :to="{name:'RechangePass'}"><img src="img/passs.png" class="icon"> {{ $t('Password_Management.value') }} </router-link>
                     </li>
 
                 </ul>

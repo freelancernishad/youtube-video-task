@@ -5,7 +5,7 @@
         <section id="topbar">
             <div class="title">
                 <a href="javascript:void(0)" @click="$router.go(-1)"><i class="fa fa-angle-left"></i></a>
-                <p>Password management</p>
+                <p>{{ $t('Password_Management.value') }}</p>
                 <LanguageComponent/>
             </div>
         </section>
@@ -13,41 +13,28 @@
         <section id="account-form">
 
                 <div class="long-title">
-                    <p>Change the login password</p>
+                    <p style="    background: red;
+    color: white;">{{ $t('Change_the_login_password.value') }}</p>
                 </div>
 
                 <div class="container-fluid">
                      <form @submit.stop.prevent="accountPassChange">
-                    <label> Old password:</label>
-                    <input type="password" class="form-control" v-model="accountPass.old" required placeholder="Please enter the old password">
+                    <label> {{ $t('Old_password.value') }}</label>
+                    <input type="password" class="form-control" v-model="accountPass.old" required :placeholder="$t('Please_enter_the_old_password.value')">
 
 
-                    <label>New password:</label>
-                    <input type="password" class="form-control" v-model="accountPass.newpass" required placeholder="Please enter new login password">
+                    <label>{{ $t('New_password.value') }}</label>
+                    <input type="password" class="form-control" v-model="accountPass.newpass" required :placeholder="$t('Please_enter_new_login_password.value')">
 
 
-                    <label>Confirm password:</label>
-                    <input type="password" class="form-control" v-model="accountPass.confirm" required placeholder="Please enter new password again">
+                    <label>{{ $t('Confirm_password.value') }}</label>
+                    <input type="password" class="form-control" v-model="accountPass.confirm" required :placeholder="$t('Please_enter_new_password_again.value')">
 
-                    <input type="submit" class="savedata" value="Confirm to modify the login password">
+                    <input type="submit" class="savedata" :value="$t('Confirm_to_modify_the_login_password.value')">
 
 </form>
                 </div>
-                <div class="long-title">
-                    <p>Change withdrawal password</p>
-                </div>
-                <div class="container-fluid">
-<form @submit.stop.prevent="withdrawPassChange">
-                    <label>Please enter old withdrawal password (উইথড্র  পাসওয়ার্ড দিয়ে না থাকলে old passward হিসেবে 123456 ব্যবহার করুন  )</label>
-                    <input type="password" class="form-control" v-model="withdarawPass.old" required placeholder="Please enter old withdrawal password">
 
-
-                    <label>Please enter new withdrawal password</label>
-                    <input type="password" class="form-control" v-model="withdarawPass.newpass" required placeholder="Please enter new withdrawal password">
-
-                    <input type="submit" class="savedata" value="Confirm to modify the withdrawal password">
-</form>
-                </div>
 
 
 

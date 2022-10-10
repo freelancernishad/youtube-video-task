@@ -3446,6 +3446,21 @@ var Language = /*#__PURE__*/function () {
         Recharge_History: {
           value: 'Recharge History'
         },
+        Recharge_amount: {
+          value: 'Amount'
+        },
+        Order_Number: {
+          value: 'Order Number'
+        },
+        Recharge_status: {
+          value: 'status'
+        },
+        Date: {
+          value: 'Date'
+        },
+        Remarks: {
+          value: 'Remarks'
+        },
         Withdraw_History: {
           value: 'Withdraw History'
         },
@@ -3496,6 +3511,51 @@ var Language = /*#__PURE__*/function () {
         },
         Team_Recharge_Bonus: {
           value: 'Team Recharge Bonus'
+        },
+        Bank_Card: {
+          value: 'Bank Card'
+        },
+        Password_Management: {
+          value: 'Password Management'
+        },
+        Please_input_bank_account_information: {
+          value: 'Please input bank account information'
+        },
+        Bank_Name: {
+          value: 'Bank Name'
+        },
+        Bank_account: {
+          value: 'Bank account '
+        },
+        agr: {
+          value: 'I have agreed to the service agreement '
+        },
+        BW: {
+          value: 'Dear member you can only set your bank card once. So check carefully before submitting.'
+        },
+        Change_the_login_password: {
+          value: 'Change the login password'
+        },
+        Old_password: {
+          value: 'Old password'
+        },
+        Please_enter_the_old_password: {
+          value: 'Please enter the old password'
+        },
+        New_password: {
+          value: 'New password'
+        },
+        Please_enter_new_login_password: {
+          value: 'Please enter new login password'
+        },
+        Confirm_password: {
+          value: 'Confirm password'
+        },
+        Please_enter_new_password_again: {
+          value: 'Please enter new password again'
+        },
+        Confirm_to_modify_the_login_password: {
+          value: 'Confirm to modify the login password'
         }
       };
       return lang;
@@ -3577,6 +3637,21 @@ var Language = /*#__PURE__*/function () {
         Recharge_History: {
           value: 'রিচার্জ ইতিহাস'
         },
+        Recharge_amount: {
+          value: 'টাকার পরিমাণ'
+        },
+        Order_Number: {
+          value: 'অর্ডার নম্বর'
+        },
+        Recharge_status: {
+          value: 'স্ট্যাটাস'
+        },
+        Date: {
+          value: 'তারিখ'
+        },
+        Remarks: {
+          value: 'মন্তব্য'
+        },
         Withdraw_History: {
           value: 'প্রত্যাহার ইতিহাস'
         },
@@ -3627,6 +3702,51 @@ var Language = /*#__PURE__*/function () {
         },
         Team_Recharge_Bonus: {
           value: 'টিম রিচার্জ বোনাস'
+        },
+        Bank_Card: {
+          value: 'ব্যাঙ্ক কার্ড'
+        },
+        Password_Management: {
+          value: 'পাসওয়ার্ড ব্যবস্থাপনা'
+        },
+        Please_input_bank_account_information: {
+          value: 'অনুগ্রহ করে ব্যাঙ্ক অ্যাকাউন্ট এর তথ্য ইনপুট করুন'
+        },
+        Bank_Name: {
+          value: 'ব্যাংকের নাম'
+        },
+        Bank_account: {
+          value: 'ব্যাংক হিসাব '
+        },
+        agr: {
+          value: 'আমি পরিষেবা চুক্তিতে সম্মত হয়েছি '
+        },
+        BW: {
+          value: 'প্রিয় সদস্য আপনি শুধু মাত্র একবার আপনার ব্যাংক কার্ড সেটিং করতে পারবেন। তাই সাবমিট করার পূবে ভালো করে দেখে নিন।'
+        },
+        Change_the_login_password: {
+          value: 'লগইন পাসওয়ার্ড পরিবর্তন করুন'
+        },
+        Old_password: {
+          value: 'পুরানো পাসওয়ার্ড'
+        },
+        Please_enter_the_old_password: {
+          value: 'পুরানো পাসওয়ার্ড লিখুন'
+        },
+        New_password: {
+          value: 'নতুন পাসওয়ার্ড'
+        },
+        Please_enter_new_login_password: {
+          value: 'নতুন লগইন পাসওয়ার্ড লিখুন'
+        },
+        Confirm_password: {
+          value: 'পাসওয়ার্ড নিশ্চিত করুন'
+        },
+        Please_enter_new_password_again: {
+          value: 'অনুগ্রহ করে আবার নতুন পাসওয়ার্ড লিখুন'
+        },
+        Confirm_to_modify_the_login_password: {
+          value: 'লগইন পাসওয়ার্ড পরিবর্তন করতে নিশ্চিত করুন'
         }
       };
       return lang;
