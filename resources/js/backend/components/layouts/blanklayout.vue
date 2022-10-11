@@ -35,7 +35,7 @@
                             <router-link :to="{name:'Usertask'}">
                                 <img :src="$asseturl+'frontend/img/Task.png'" alt="Home">
                                 <img :src="$asseturl+'frontend/img/TaskA.png'" alt="Home" class="activeimg">
-                                <p>Tasks</p>
+                                <p>Earn</p>
                             </router-link>
                         </div>
                     </div>

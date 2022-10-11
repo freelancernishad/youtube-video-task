@@ -72,6 +72,7 @@ class authController extends Controller
 
     public function register(Request $r)
     {
+        $username =  substr($r->name, 0, 2).time();
 
         $clientIP = request()->ip();
 
@@ -82,6 +83,7 @@ class authController extends Controller
         $data = [];
         $data = $r->except(['password','password_confirmation']);
         $data['password'] = hash::make($r->password);
+        $data['username'] =$username;
         $data['email'] =time().'@gmail.com';
         $bonus = settings()->new_regitration;
         $data['balance'] =$bonus;

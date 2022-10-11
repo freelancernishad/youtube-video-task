@@ -2140,7 +2140,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      settings: {},
+      // settings:{},
       Frontloader: false
     };
   },
@@ -2197,30 +2197,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return e.response;
       }
     },
-    settingFun: function settingFun() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var res;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _this2.callApi('get', "/api/admin/setting/1", []);
-
-              case 2:
-                res = _context2.sent;
-                _this2.settings = res.data;
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
+    // async settingFun(){
+    //         var res = await this.callApi('get',`/api/admin/setting/1`,[]);
+    //         this.settings = res.data;
+    // },
     dateformatglobal: function dateformatglobal() {
       var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
       return User.dateformat(date);

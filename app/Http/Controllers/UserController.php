@@ -217,6 +217,7 @@ public function referfunction($id)
         $todayDate = date('Y-m-d');
          $YesterdayDate =  date('Y-m-d',strtotime("-1 days"));
         $registration_bonus = Transition::where(['user_id'=>$user->id,'remark'=>'registration_bonus'])->sum('amount');
+        $deposit_commisition = Transition::where(['user_id'=>$user->id,'remark'=>'deposit_commisition'])->count();
         $taskearn = Task::where(['user_id'=>$user->id])->sum('task_comisition');
         $todayearn = Task::where(['user_id'=>$user->id,'date'=>$todayDate])->sum('task_comisition');
         $YesterdayEarn = Task::where(['user_id'=>$user->id,'date'=>$YesterdayDate])->sum('task_comisition');
@@ -224,6 +225,7 @@ public function referfunction($id)
 
        $rows = [
            'new_regitration'=>settings()->new_regitration,
+           'deposit_commisition'=>$deposit_commisition,
            'registration_bonus'=>$registration_bonus,
            'taskearn'=>$taskearn,
            'todayearn'=>$todayearn,
@@ -568,18 +570,18 @@ return 1;
 
         $name = $request->name;
         if($name=='add'){
-            $add = balanceIncrease($user->balance, $add);
-            transitionCreate($user->id,$add,0,$add,'increase','dfg','deposit_commisition','');
+            $addTotal = balanceIncrease($user->balance, $add);
+            transitionCreate($user->id,$add,0,$addTotal,'increase','dfg','deposit_commisition','');
         }else{
-            $add = balanceDecrease($user->balance, $add);
-            transitionCreate($user->id,$add,0,$add,'decrease','dfg','Fine','');
+            $addTotal = balanceDecrease($user->balance, $add);
+            transitionCreate($user->id,$add,0,$addTotal,'decrease','dfg','Fine','');
         }
 
 // return $add;
         // return planId($LevelOneNewBalance);
         $user->update([
-            'balance' => $add,
-            'plan_id' => planId($add),
+            'balance' => $addTotal,
+            'plan_id' => planId($addTotal),
         ]);
 
     }

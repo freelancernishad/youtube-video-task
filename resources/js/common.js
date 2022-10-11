@@ -5,7 +5,7 @@ export default {
     },
     data(){
         return {
-            settings:{},
+            // settings:{},
             Frontloader:false
         }
     },
@@ -44,13 +44,13 @@ export default {
             }
         },
 
-        async settingFun(){
+        // async settingFun(){
 
 
 
-                var res = await this.callApi('get',`/api/admin/setting/1`,[]);
-                this.settings = res.data;
-        },
+        //         var res = await this.callApi('get',`/api/admin/setting/1`,[]);
+        //         this.settings = res.data;
+        // },
 
         dateformatglobal(date=''){
            return  User.dateformat(date);

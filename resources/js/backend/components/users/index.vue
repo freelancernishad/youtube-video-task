@@ -24,13 +24,7 @@
           <div class="left-img">
             <img :src="$asseturl+'frontend/img/notice_icon.png'" alt="icon" />
           </div>
-          <marquee>সম্মানিত গ্রাহক,
-আমাদের কোম্পানি আমেরিকান
-বাংলাদেশে এজেন্টের মাধ্যমে
-আমরা ২ বছরের জন্য বাংলাদেশে
-মার্কেট পরিদর্শন করতে আসছি,
-আমাদের এখানে অর্থ বিনিয়োগ করে
-আপনারা কাজ করে উপার্জন করতে পারেন।</marquee
+          <marquee>{{ settings.notice }}</marquee
           >
           <div class="button right">Notice</div>
         </div>
@@ -189,6 +183,7 @@ export default {
             row:{},
             notice:true,
             slideimage:'',
+            settings:{},
             user:{
                 user:{}
             },
@@ -213,6 +208,10 @@ export default {
         },
 
        async getplans(){
+
+        var resN = await this.callApi('get',`/api/admin/setting/1`,[])
+              this.settings = resN.data
+
 
             var res = await this.callApi('get',`/api/admin/plan`,[])
             this.row = res.data

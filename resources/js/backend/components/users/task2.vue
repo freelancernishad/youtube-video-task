@@ -53,6 +53,23 @@ export default {
 
 
 
+
+        if(User.dateformat()[9]<=23){
+            if(User.dateformat()[9]>=14){
+                // this.$router.push({ name: 'Authuser' });
+            }else{
+                alert('কাজের সময় দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত')
+                this.$router.push({ name: 'Authuser' });
+            }
+        }else{
+            alert('কাজের সময় দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত')
+            this.$router.push({ name: 'Authuser' });
+        }
+
+
+
+
+
     },
     data() {
         return {

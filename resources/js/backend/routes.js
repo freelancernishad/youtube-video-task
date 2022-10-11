@@ -14,6 +14,7 @@ let Settings = require('./components/Settings.vue').default;
 let Userslist = require('./components/admin/users/list.vue').default;
 let UsersView = require('./components/admin/users/view.vue').default;
 let Usersform = require('./components/admin/users/form.vue').default;
+let transitionslist = require('./components/admin/transitions/list.vue').default;
 
 
 let withdrawllist = require('./components/admin/withdrawal/list.vue').default;
@@ -63,7 +64,7 @@ let license = require('./components/users/license.vue').default;
 let teamdetails = require('./components/users/teamdetails.vue').default;
 let teamMember = require('./components/users/teamMember.vue').default;
 let teamIntro = require('./components/users/teamIntro.vue').default;
-let Recharge = require('./components/users/Recharge.vue').default;
+let Recharge = require('./components/users/Recharge2.vue').default;
 let RechargePage = require('./components/users/RechargePage.vue').default;
 let Withdraw = require('./components/users/Withdraw.vue').default;
 let invite = require('./components/users/invite.vue').default;
@@ -142,6 +143,7 @@ export const routes = [
   { path:  `${prefix}/deposit/form/:id`, component: depositform, name:'depositform',meta: { layout: adminlayout } },
 
 
+  { path:  `${prefix}/transitions/list/:userid`, component: transitionslist, name:'transitionslist',meta: { layout: adminlayout } },
 
 
 
