@@ -4,7 +4,9 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DepositController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UddoktapayController;
 
 
 
@@ -30,6 +32,10 @@ Route::post('/ip/check', function (Request $request) {
 });
 
 
+Route::get( 'pay', [UddoktapayController::class, 'show'] )->name( 'uddoktapay.payment-form' );
+
+Route::get( 'success', [DepositController::class, 'paymentSuccess'] )->name( 'uddoktapay.success' );
+Route::get( 'cancel', [UddoktapayController::class, 'cancel'] )->name( 'uddoktapay.cancel' );
 
 // Auth::routes();
 

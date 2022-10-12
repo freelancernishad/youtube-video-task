@@ -80,8 +80,8 @@ export default {
                 Notification.customError(`Minimum deposit amount ${this.settings.min_deposit}`);
             }else{
                 this.form['userid'] = localStorage.getItem('userid')
-                var res = await this.callApi('post', `/api/get/payment/url`, this.form);
-                window.location.href=res.data.payment_url
+                var res = await this.callApi('post', `/api/pay`, this.form);
+                window.location.href=res.data
             }
 
 

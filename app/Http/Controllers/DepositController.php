@@ -8,6 +8,9 @@ use App\Models\Transition;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 class DepositController extends Controller
 {
 
@@ -44,17 +47,18 @@ class DepositController extends Controller
     {
 
 
-          $apiResponse =  json_decode($request->all());
-          $depositCheck = Deposit::where('trx',$apiResponse->transaction_id)->count();
-          if($depositCheck>0){
-            return 'This Transition id already exits.';
-          }
 
-          $method =  ucfirst($apiResponse->payment_method);
-          $sender_number =  $apiResponse->sender_number;
-          $amount =  $apiResponse->amount;
-          $transaction_id =  $apiResponse->transaction_id;
-           $user_id =  $apiResponse->metadata->userid;
+          $apiResponse =  $request->all();
+        //   $depositCheck = Deposit::where('trx',$apiResponse->transaction_id)->count();
+        //   if($depositCheck>0){
+        //     return 'This Transition id already exits.';
+        //   }
+Log::info($apiResponse);
+          $method =  ucfirst($apiResponse['payment_method']);
+          $sender_number =  $apiResponse['sender_number'];
+          $amount =  $apiResponse['amount'];
+          $transaction_id =  $apiResponse['transaction_id'];
+           $user_id =  $apiResponse['metadata']['userid'];
 
 
                   $methodData = Gateway::where(['name' => $method])->first();
@@ -70,7 +74,7 @@ class DepositController extends Controller
                   ];
                 $new_Deposit =    Deposit::create($depositData);
 
-        if($apiResponse->status=='Completed'){
+        if($apiResponse['status']=='COMPLETED'){
 
             return  $this->userbanned('approved',$new_Deposit->id);
         }
@@ -88,47 +92,6 @@ class DepositController extends Controller
     {
 
 
-
-
-
-//         $panel_url = env('UDDOKTAPY_URL');
-//         $Api_Key = env('UDDOKTAPY_API_KEY');
-//         $invoice_id = $request->invoice_id;
-
-//         $data = ["invoice_id"=>"$invoice_id"];
-//         $data = json_encode($data);
-
-//         $header = [
-//         "RT-UDDOKTAPAY-API-KEY: $Api_Key",
-//         "Content-Type: application/json"
-//         ];
-
-
-
-
-//           $apiResponse =  json_decode($this->CTRLRequest("$panel_url/api/verify-payment",$data,$header));
-
-// $method =  ucfirst($apiResponse->payment_method);
-// $sender_number =  $apiResponse->sender_number;
-// $amount =  $apiResponse->amount;
-// $transaction_id =  $apiResponse->transaction_id;
-//  $user_id =  $apiResponse->metadata->userid;
-
-
-//         $methodData = Gateway::where(['name' => $method])->first();
-//         $depositData = [
-//             'user_id'=>$user_id,
-//             'method'=>$methodData->id,
-//             'amount'=>$amount,
-//             'curency'=>$methodData->currency,
-//             'rate'=>$methodData->rate,
-//             'sender'=>$sender_number,
-//             'trx'=>$transaction_id,
-//             'status'=>'pending',
-//         ];
-//       $new_Deposit =    Deposit::create($depositData);
-
-//         $this->userbanned('approved',$new_Deposit->id);
 
 
         $redirect = url('/dashboard/user/rechargeHistory');
@@ -209,7 +172,7 @@ setInterval(function(){
     }
 
 
-    public function userbanned(Request $request, $status, $id)
+    public function userbanned($status, $id)
     {
         $deposit = Deposit::find($id);
         if ($status == 'approved') {
