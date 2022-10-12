@@ -11,9 +11,9 @@
 </div>
 </div>
             <div class="text-center">
-                <img style="width: 46px;float: center;" :src="$asseturl+'frontend/img/logos.png'" alt="">
+                <img style="width: 126px;margin-bottom: 20px;;float: center;" :src="$asseturl+'frontend/img/logos.png?ver=1.0'" alt="">
             </div>
-            <h2 class="text-center" style="font-size:30px">{{ $t('Register.value') }}</h2>
+            <h2 class="text-center" style="font-size:30px;    margin-bottom: 16px;">{{ $t('Register.value') }}</h2>
 
             <form @submit.prevent='register' style="padding-bottom: 70px;">
 

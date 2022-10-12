@@ -111,6 +111,10 @@ class Notification{
 			layout: 'topRight',
 			text: mess,
 			timeout: 2000,
+
+
+
+
 		}).show();
         this.errorSound()
 	}

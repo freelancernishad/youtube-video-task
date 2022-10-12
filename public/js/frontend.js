@@ -2730,17 +2730,19 @@ var render = function render() {
     staticClass: "text-center"
   }, [_c("img", {
     staticStyle: {
-      width: "46px",
+      width: "126px",
+      "margin-bottom": "20px",
       "float": "center"
     },
     attrs: {
-      src: _vm.$asseturl + "frontend/img/logos.png",
+      src: _vm.$asseturl + "frontend/img/logos.png?ver=1.0",
       alt: ""
     }
   })]), _vm._v(" "), _c("h2", {
     staticClass: "text-center",
     staticStyle: {
-      "font-size": "30px"
+      "font-size": "30px",
+      "margin-bottom": "16px"
     }
   }, [_vm._v(_vm._s(_vm.$t("Welcome.value")))]), _vm._v(" "), _c("form", {
     staticStyle: {
@@ -2916,17 +2918,19 @@ var render = function render() {
     staticClass: "text-center"
   }, [_c("img", {
     staticStyle: {
-      width: "46px",
+      width: "126px",
+      "margin-bottom": "20px",
       "float": "center"
     },
     attrs: {
-      src: _vm.$asseturl + "frontend/img/logos.png",
+      src: _vm.$asseturl + "frontend/img/logos.png?ver=1.0",
       alt: ""
     }
   })]), _vm._v(" "), _c("h2", {
     staticClass: "text-center",
     staticStyle: {
-      "font-size": "30px"
+      "font-size": "30px",
+      "margin-bottom": "16px"
     }
   }, [_vm._v(_vm._s(_vm.$t("Register.value")))]), _vm._v(" "), _c("form", {
     staticStyle: {
