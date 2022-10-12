@@ -39,17 +39,17 @@ Route::post('refound', function (Request $request) {
 
 });
 
-Route::post('webhook', function (Request $request) {
+// Route::post('webhook', function (Request $request) {
 
-    $data = $request->all();
+//     $data = $request->all();
 
-    $data = json_encode($data);
+//     $data = json_encode($data);
 
-    $fileName = time(). '_datafile.json';
-    File::put(public_path($fileName),$data);
-    return Response::download(public_path($fileName));
+//     $fileName = time(). '_datafile.json';
+//     File::put(public_path($fileName),$data);
+//     return Response::download(public_path($fileName));
 
-});
+// });
 
 
 Route::group([
