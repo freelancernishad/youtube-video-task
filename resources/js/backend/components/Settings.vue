@@ -51,6 +51,14 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Min Deposit</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.min_deposit" class="form-control"/>
+
+                                        </div>
+                                    </div>
 
 
                             <div class="col-md-12 mt-4">
@@ -78,6 +86,7 @@ export default {
                 notice:'',
                 new_regitration:'',
                 refer_bonus:'',
+                min_deposit:'',
 
             }
         }

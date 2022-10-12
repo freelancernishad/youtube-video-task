@@ -14,7 +14,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-       return Setting::all();
+       return Setting::first();
     }
 
     /**

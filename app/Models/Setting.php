@@ -13,6 +13,7 @@ class Setting extends Model
         'notice',
         'new_regitration',
         'refer_bonus',
-        'a'
+        'a',
+        'min_deposit',
     ];
 }

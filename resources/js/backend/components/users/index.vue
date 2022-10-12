@@ -209,7 +209,7 @@ export default {
 
        async getplans(){
 
-        var resN = await this.callApi('get',`/api/admin/setting/1`,[])
+        var resN = await this.callApi('get',`/api/admin/setting`,[])
               this.settings = resN.data
 
 

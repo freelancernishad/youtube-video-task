@@ -23,6 +23,47 @@ class UserController extends Controller
     //     $this->middleware('auth');
     // }
 
+    public function paymentUrl(Request $request)
+    {
+        $amount =$request->amount;
+
+$metadata = json_encode($request->all());
+$curl = curl_init();
+$panel_url = env('UDDOKTAPY_URL');
+$Api_Key = env('UDDOKTAPY_API_KEY');
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "$panel_url/api/checkout-v2",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+     "full_name": "Freelancer Nishad",
+     "email": "freelancernishad123@gmail.com",
+     "amount": "'.$amount.'",
+     "metadata": '.$metadata.',
+     "redirect_url": "'.url('api/success').'",
+     "cancel_url": "'.url('api/cancel').'",
+     "webhook_url": "'.url('api/webhook').'"
+}
+',
+  CURLOPT_HTTPHEADER => array(
+    "RT-UDDOKTAPAY-API-KEY: $Api_Key",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+return $response;
+
+    }
+
 
 public function referfunction($id)
 {

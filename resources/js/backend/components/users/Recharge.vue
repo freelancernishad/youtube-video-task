@@ -57,6 +57,7 @@ export default {
                 amount: '',
             },
             row: {},
+            settings: {},
             payMethods: '',
             amount: 0,
             step: 1,
@@ -67,17 +68,28 @@ export default {
     },
     methods: {
 
-
+        async setting(){
+            var resN = await this.callApi('get',`/api/admin/setting`,[])
+              this.settings = resN.data
+        },
 
         async onSubmit() {
-            this.form['userid'] = localStorage.getItem('userid')
-            var res = await this.callApi('post', `/api/get/payment/url`, this.form);
-            window.location.href=res.data.payment_url
+
+
+            if(this.settings.min_deposit>Number(this.form.amount)){
+                Notification.customError(`Minimum deposit amount ${this.settings.min_deposit}`);
+            }else{
+                this.form['userid'] = localStorage.getItem('userid')
+                var res = await this.callApi('post', `/api/get/payment/url`, this.form);
+                window.location.href=res.data.payment_url
+            }
+
+
 
         },
     },
     mounted() {
-
+        this.setting();
 
     },
 }

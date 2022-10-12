@@ -10,6 +10,183 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 class DepositController extends Controller
 {
+
+
+
+    public function CTRLRequest($url='',$data='',$header=['Content-Type: application/json'])
+    {
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>$data,
+            CURLOPT_HTTPHEADER => $header,
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            return $response;
+
+    }
+
+
+
+    public function paymentwebhook(Request $request)
+    {
+
+
+          $apiResponse =  json_decode($request->all());
+          $depositCheck = Deposit::where('trx',$apiResponse->transaction_id)->count();
+          if($depositCheck>0){
+            return 'This Transition id already exits.';
+          }
+
+          $method =  ucfirst($apiResponse->payment_method);
+          $sender_number =  $apiResponse->sender_number;
+          $amount =  $apiResponse->amount;
+          $transaction_id =  $apiResponse->transaction_id;
+           $user_id =  $apiResponse->metadata->userid;
+
+
+                  $methodData = Gateway::where(['name' => $method])->first();
+                  $depositData = [
+                      'user_id'=>$user_id,
+                      'method'=>$methodData->id,
+                      'amount'=>$amount,
+                      'curency'=>$methodData->currency,
+                      'rate'=>$methodData->rate,
+                      'sender'=>$sender_number,
+                      'trx'=>$transaction_id,
+                      'status'=>'pending',
+                  ];
+                $new_Deposit =    Deposit::create($depositData);
+
+        if($apiResponse->status=='Completed'){
+
+            return  $this->userbanned('approved',$new_Deposit->id);
+        }
+
+
+
+
+
+
+
+    }
+
+
+    public function paymentSuccess(Request $request)
+    {
+
+
+
+
+
+//         $panel_url = env('UDDOKTAPY_URL');
+//         $Api_Key = env('UDDOKTAPY_API_KEY');
+//         $invoice_id = $request->invoice_id;
+
+//         $data = ["invoice_id"=>"$invoice_id"];
+//         $data = json_encode($data);
+
+//         $header = [
+//         "RT-UDDOKTAPAY-API-KEY: $Api_Key",
+//         "Content-Type: application/json"
+//         ];
+
+
+
+
+//           $apiResponse =  json_decode($this->CTRLRequest("$panel_url/api/verify-payment",$data,$header));
+
+// $method =  ucfirst($apiResponse->payment_method);
+// $sender_number =  $apiResponse->sender_number;
+// $amount =  $apiResponse->amount;
+// $transaction_id =  $apiResponse->transaction_id;
+//  $user_id =  $apiResponse->metadata->userid;
+
+
+//         $methodData = Gateway::where(['name' => $method])->first();
+//         $depositData = [
+//             'user_id'=>$user_id,
+//             'method'=>$methodData->id,
+//             'amount'=>$amount,
+//             'curency'=>$methodData->currency,
+//             'rate'=>$methodData->rate,
+//             'sender'=>$sender_number,
+//             'trx'=>$transaction_id,
+//             'status'=>'pending',
+//         ];
+//       $new_Deposit =    Deposit::create($depositData);
+
+//         $this->userbanned('approved',$new_Deposit->id);
+
+
+        $redirect = url('/dashboard/user/rechargeHistory');
+
+
+    $html = "
+    <!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin:0
+        }
+    </style>
+    <div style='text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);width: 300px;'>
+    <h2 style='color:red'>Don't Close this page</h2>
+    <p>Please wait untill redirect this page</p>
+    <p style='display:none' id='redirect'>if can't redirect this page <a href='$redirect'>Click to redirect</a></p>
+    <h2 style='display:block;color:#3e12a8' id='coundown'></h2>
+    </div>
+<script>
+var i = 5;
+setInterval(function(){
+    document.getElementById('coundown').innerHTML='Please Wait'+i
+    if(i==0){
+        document.getElementById('redirect').style.display='block'
+         document.getElementById('coundown').style.display='none'
+         window.location.href = '$redirect'
+    }
+    i--
+}, 1000);
+</script>
+    </body>
+    </html>
+    ";
+    echo $html;
+
+    // die();
+
+
+
+
+    }
+
+
+
+
+
     /**
      * Display a listing of the resource.
      *

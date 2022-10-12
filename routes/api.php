@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\TaskController;
@@ -32,6 +33,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
+Route::post('refound', function (Request $request) {
+
+    return $request->all();
+
+});
+
+Route::post('webhook', function (Request $request) {
+
+    $data = $request->all();
+
+    $data = json_encode($data);
+
+    $fileName = time(). '_datafile.json';
+    File::put(public_path($fileName),$data);
+    return Response::download(public_path($fileName));
+
+});
+
 
 Route::group([
     'middleware' => 'api',
@@ -43,6 +62,14 @@ Route::group([
     Route::post('refresh', [authController::class,'refresh']);
     Route::post('me', [authController::class,'login']);
 });
+
+
+
+
+Route::post('get/payment/url', [UserController::class,'paymentUrl']);
+
+Route::post('success', [DepositController::class,'paymentSuccess']);
+Route::post('webhook', [DepositController::class,'paymentwebhook']);
 
 
 Route::get('count/username/check', [authController::class,'usernamecheck']);
