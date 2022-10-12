@@ -403,7 +403,7 @@ input:focus {
 .form .submit {
 	width: 100%;
 	font-size: 15px;
-    background: #2326bb;
+    background: linear-gradient(45deg, #0a3477, #b80909);
 	color: #fff;
 	border-radius: 9px;
 	text-align: center;
@@ -411,6 +411,12 @@ input:focus {
 	font-weight: 600;
 	/* height: 36px; */
 	border: 0;
+    transition: all 0.5s;
+}
+.form .submit:hover {
+    transition: all 0.5s;
+    background: linear-gradient(45deg, #b80909,#0a3477);
+
 }
 #bigbg .form a {
 	position: relative;
@@ -459,9 +465,14 @@ input:focus {
 #bigbg .form a.reg {
     background: none;
     color: #fff;
-    background: green;
+    background: linear-gradient(45deg, #b80909 , #0a3477);
     padding: 8px 1px;
     border-radius: 6px;
+  }
+#bigbg .form a.reg:hover {
+    background: linear-gradient(45deg, #0a3477, #b80909);
+
+
   }
 
 #banner {
