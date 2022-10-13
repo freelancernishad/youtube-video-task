@@ -88,7 +88,7 @@ $getName='';
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=bkash_number&value=$number",
+          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
