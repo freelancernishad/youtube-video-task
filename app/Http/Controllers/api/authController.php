@@ -72,7 +72,16 @@ class authController extends Controller
 
     public function register(Request $r)
     {
-        $username =  substr($r->name, 0, 2).time();
+
+
+        $CountUser = User::count();
+        if($CountUser>0){
+            $lastUser = User::latest()->first();
+            $username =  $lastUser->username+1;
+        }else{
+            $username =  '1000000';
+        }
+
 
         $clientIP = request()->ip();
 
