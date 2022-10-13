@@ -74,14 +74,27 @@ class GatewayController extends Controller
     public function update(Request $request, Gateway $gateway)
     {
         $data = $request->all();
-$getName='';
+        $status = $request->status;
+
+        if($status=='active'){
+            $status = 1;
+        }else{
+            $status = 0;
+        }
+
+        $getStatusText = '';
+        $getName = '';
         $name = $request->name;
         if($name=="Bkash"){
             $getName = 'bkash_number';
+            $getStatusText = 'bkash_enabled';
+
         }elseif($name=="Nagad"){
             $getName = 'nagad_number';
+            $getStatusText = 'nagad_enabled';
         }elseif($name=="Rocket"){
             $getName = 'rocket_number';
+            $getStatusText = 'rocket_enabled';
         }
 
 
@@ -89,7 +102,7 @@ $getName='';
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number",
+          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number&getStatusText=$getStatusText&$status",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
