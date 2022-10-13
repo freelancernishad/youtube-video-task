@@ -75,7 +75,7 @@ class GatewayController extends Controller
 
      public function sentRequest($key,$value)
      {
-        
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -102,7 +102,7 @@ class GatewayController extends Controller
         if($status=='active'){
             $status = true;
         }else{
-            $status = false;
+            $status = 0;
         }
 
         $getStatusText = '';
@@ -121,7 +121,7 @@ class GatewayController extends Controller
         }
 
         $number = $request->number;
- 
+
         $this->sentRequest($getName,$number);
         $this->sentRequest($getStatusText,$status);
 
