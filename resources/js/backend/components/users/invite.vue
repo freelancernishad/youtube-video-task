@@ -3,7 +3,7 @@
 
 
 
-        <section id="bigbg" class="qr">
+        <section id="bigbg" style="background: #3838a3 !important;" class="qr">
             <div class="container-fluid">
                 <a href="javascript:void(0)" @click="$router.go(-1)"><i class="fa fa-angle-left"></i></a>
                 <div class="QR  text-center">
@@ -48,7 +48,7 @@ export default {
           async getData() {
              var id = localStorage.getItem('userid');
             var res = await this.callApi('get', `/api/admin/user/${id}`, []);
-                this.ref = 'https://dmshope.com/register?ref='+res.data.user.username
+                this.ref = 'https://jmyearnmoney.com/register?ref='+res.data.user.username
             this.row = res.data;
 
         },

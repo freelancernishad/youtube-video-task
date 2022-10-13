@@ -15,7 +15,7 @@
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu">
                             <router-link :to="{name:'Authuser'}">
-                                <img :src="$asseturl+'frontend/img/home.png'" alt="Home">
+                                <img :src="$asseturl+'frontend/img/home.png?ver=1.0'" alt="Home">
                                 <p>Home</p>
                             </router-link>
                         </div>
@@ -23,7 +23,7 @@
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu">
                             <router-link :to="{name:'UserTeam'}">
-                                <img :src="$asseturl+'frontend/img/team.png'" alt="Home">
+                                <img :src="$asseturl+'frontend/img/team.png?ver=1.0'" alt="Home">
                                 <p>Team</p>
                             </router-link>
                         </div>
@@ -31,15 +31,15 @@
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu" style="position: relative;">
                             <router-link :to="{name:'Usertask'}" style="position: absolute;bottom: -37px;left: 23%;background: white;padding: 6px;border-top-left-radius: 30px;border-top-right-radius: 30px;">
-                                <img style="width: 46px;height: 42px;" :src="$asseturl+'frontend/img/Task.png'" alt="Home">
+                                <img style="width: 46px;height: 42px;" :src="$asseturl+'frontend/img/Task.png?ver=1.0'" alt="Home">
                                 <p>Earn</p>
                             </router-link>
                         </div>
                     </div>
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu">
-                            <a :href="$asseturl+'Dream_Land.apk'">
-                                <img :src="$asseturl+'frontend/img/android.png'" alt="Home">
+                            <a href="#">
+                                <img :src="$asseturl+'frontend/img/android.png?ver=1.0'" alt="Home">
                                 <p>App</p>
                             </a>
                         </div>
@@ -47,7 +47,7 @@
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu">
                             <router-link :to="{name:'Useraccount'}">
-                                <img :src="$asseturl+'frontend/img/profile.png'" alt="Home">
+                                <img :src="$asseturl+'frontend/img/profile.png?ver=1.0'" alt="Home">
                                 <p>Account</p>
                             </router-link>
                         </div>
