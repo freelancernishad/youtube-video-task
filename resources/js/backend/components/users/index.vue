@@ -66,23 +66,6 @@
             </router-link>
             </div>
 
-
-
-
-            <div class="col-md-6">
-                <a :href="settings.telegroup">
-                <div class="card" style="    background: #0baf4a; margin-bottom: 22px;">
-                    <div class="card-body">
-                        <img width="100%" :src="$asseturl+'frontend/img/Telegram.png'" alt="tab" />
-                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
-                    </div>
-                </div>
-            </a>
-            </div>
-
-
-
-
             <div class="col-md-6">
                 <router-link :to="{name:'invite'}">
                 <div class="card" style="    background: #0b37a6bf; margin-bottom: 22px;">
@@ -95,6 +78,52 @@
             </div>
 
 
+            <div class="col-md-6"  v-if="settings.telegroup">
+                <a :href="settings.telegroup">
+                <div class="card" style="    background: #0baf4a; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/Telegram.png'" alt="tab" />
+                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                    </div>
+                </div>
+            </a>
+            </div>
+
+
+            <div class="col-md-6" v-if="settings.telesupport1">
+                <a :href="settings.telesupport1">
+                <div class="card" style="    background: #0084d9; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/customerSupport.png'" alt="tab" />
+                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                    </div>
+                </div>
+            </a>
+            </div>
+
+
+            <div class="col-md-6" v-if="settings.telesupport2">
+                <a :href="settings.telesupport2">
+                <div class="card" style="    background: #0084d9; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/customerSupport.png'" alt="tab" />
+                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                    </div>
+                </div>
+            </a>
+            </div>
+
+
+            <div class="col-md-6" v-if="settings.telesupport3">
+                <a :href="settings.telesupport3">
+                <div class="card" style="    background: #0084d9; margin-bottom: 22px;">
+                    <div class="card-body">
+                        <img width="100%" :src="$asseturl+'frontend/img/customerSupport.png'" alt="tab" />
+                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                    </div>
+                </div>
+            </a>
+            </div>
 
 
 
@@ -114,7 +143,7 @@
 
 
           <div class="col-12 p-0" v-for="plan in row" :key="plan.id">
-            <div class="card" :style="{backgroundColor:'#163aaa'}" style="margin-bottom: 20px">
+            <div class="card" :style="{background: 'linear-gradient(rgb(197 25 25 / 91%), rgb(58 8 8 / 59%)),url('+$asseturl+'frontend/img/vipBg.png)',backgroundPosition: 'center center',backgroundSize: 'contain'}"  style="margin-bottom: 20px;">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="card-title text-white">{{ plan.name }}</h5>
                     <p class="text-white">{{ plan.totalorder }} Orders</p>

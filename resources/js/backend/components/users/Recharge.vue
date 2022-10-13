@@ -23,7 +23,7 @@
                             <input type="tel" class="form-control" v-model="form.amount" >
                         </div>
 
-                        <p style="color: red;text-align: center;font-size: 17px;">রিচার্জ সময় সপ্তাহের সকল দিন সকাল ১০:০০ থেকে রাত ১১ঃ০০ টা পর্যন্ত </p>
+                        <p style="color: red;text-align: center;font-size: 17px;">{{ settings.recharagetext }}</p>
 
                         <button class="btn btn-info" type="button" disabled v-if="con">Wait...</button>
                         <button class="btn btn-info" type="submit" v-else>Submit</button>

@@ -40,7 +40,7 @@
                             <div class="col-6 amount_item" @click="amount = 25000"><span>{{ 25000/rates }}</span></div>
                         </div>
                         <button class="btn btn-info" @click="nextFun(2)">Next</button>
-                        <p style="color: red;text-align: center;font-size: 17px;">রিচার্জ সময় সপ্তাহের সকল দিন সকাল ১০:০০ থেকে রাত ১১ঃ০০ টা পর্যন্ত </p>
+                        <p style="color: red;text-align: center;font-size: 17px;">{{ settings.recharagetext }}</p>
                     </div>
                     <form @submit.stop.prevent="onSubmit" v-else-if="step == 2">
                         <h4 class="d-block bg-success text-white p-1 my-3">Payment Info</h4>

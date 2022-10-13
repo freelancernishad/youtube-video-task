@@ -98,6 +98,22 @@
                                         </div>
                                     </div>
 
+                                    <!-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Withdraw Text</label>
+                                            <input v-model="form.withdrawtext" class="form-control"/>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Recharge Text</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.recharagetext" class="form-control"/>
+
+                                        </div>
+                                    </div>
+
 
                             <div class="col-md-12 mt-4">
 

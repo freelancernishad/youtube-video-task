@@ -12,26 +12,36 @@
 
     <section class="intro mb-5" >
         <div class="container-fluid">
-            <p>
+            <pre>
 
-            Dear customer,<br/>
-            Our company is American<br/>
-            Through agents in Bangladesh<br/>
-            We have been visiting Bangladesh market for 2 years.<br/>
-            You can work and earn money by investing money here.<br/><br/>
+Completely foreign site
+JMY EARN MONEY Welcome to you
 
-            Tk 300 bonus on registration<br/>
-            You can work for free <br/><br/>
+200 taka bonus if account.
+You can work for free by watching work videos.
+You will get 5 rupees per refer.
+
+Minimum deposit 300 taka
+Minimum withdrawal 500 taka
+You will receive payment in 24 hours.
+development or cash
+
+Work time:
+2 PM to 12 PM.
+Wood time is 2 am to 12 am
+Deposit time is 24 hours.
+
+We deal directly with YouTube and earn profits from them, so you can earn more by investing here.
+I can work with us for 2 years. Thank you
+
+            <img :src="$asseturl+'frontend/img/Task.png?ver=1.0'" style="width:50%" alt="">
 
 
-            <img :src="$asseturl+'frontend/img/license.jpeg'" style="width:100%" alt="">
 
 
 
 
-
-
-            </p>
+            </pre>
         </div>
     </section>
 

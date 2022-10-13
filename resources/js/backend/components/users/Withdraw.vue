@@ -38,8 +38,7 @@
                             <button class="btn btn-info" v-if="bankcardAlert" disabled >Wait...</button>
                             <button class="btn btn-info" v-else @click="nextFun(2)">Next</button>
                         </div>
-                        <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার সকাল
-                            ১০:০০ থেকে সন্ধা ০৫:০০ টা পর্যন্ত </p>
+                        <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত </p>
                         <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার প্রসেসিং ফি {{ gateways.percent_charge }}% এবং
                             প্রত্যাহার {{ gateways.processtime }} ঘন্টার মধ্যে একাউন্ট এ পৌছাবে</p>
                     </div>
@@ -79,6 +78,7 @@ export default {
                 recieved_number: '',
                 trx: '',
             },
+            settings: {},
             row: {},
             user: {user:{}},
             con: false,
@@ -92,6 +92,11 @@ export default {
         }
     },
     methods: {
+
+        async setting(){
+            var resN = await this.callApi('get',`/api/admin/setting`,[])
+              this.settings = resN.data
+        },
         checkAmount(amount) {
             if (amount > this.user.user.balance - 300) {
                 Notification.customError(`You can't Withdraw ${amount}.Because your account balance is ${this.user.user.balance - 300}`);
@@ -186,6 +191,7 @@ export default {
     },
     mounted() {
         this.getData();
+        this.setting();
 
 
 
@@ -205,14 +211,14 @@ export default {
                     }
                 }, 5000);
             }else{
-            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার সকাল১০:০০ থেকে সন্ধা ০৫:০০ টা পর্যন্ত')
+            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত')
 
                 this.$router.push({ name: 'Authuser' });
 
 
             }
         }else{
-            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার সকাল১০:০০ থেকে সন্ধা ০৫:০০ টা পর্যন্ত')
+            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত')
             this.$router.push({ name: 'Authuser' });
 
         }

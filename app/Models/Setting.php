@@ -20,5 +20,7 @@ class Setting extends Model
         'telesupport2',
         'telesupport3',
         'worktime',
+        'withdrawtext',
+        'recharagetext',
     ];
 }
