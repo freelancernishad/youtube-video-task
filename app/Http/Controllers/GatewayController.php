@@ -76,11 +76,11 @@ class GatewayController extends Controller
         $data = $request->all();
 $getName='';
         $name = $request->name;
-        if($name="Bkash"){
+        if($name=="Bkash"){
             $getName = 'bkash_number';
-        }elseif($name="Nagad"){
+        }elseif($name=="Nagad"){
             $getName = 'nagad_number';
-        }elseif($name="Rocket"){
+        }elseif($name=="Rocket"){
             $getName = 'rocket_number';
         }
 
