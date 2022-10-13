@@ -97,7 +97,7 @@ class GatewayController extends Controller
             $getStatusText = 'rocket_enabled';
         }
 
-
+echo "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number&getStatusText=$getStatusText&status=$status";
         $number = $request->number;
         $curl = curl_init();
 
