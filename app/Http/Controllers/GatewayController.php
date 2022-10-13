@@ -71,6 +71,29 @@ class GatewayController extends Controller
      * @param  \App\Models\Gateway  $gateway
      * @return \Illuminate\Http\Response
      */
+
+
+     public function sentRequest($key,$value)
+     {
+        
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$key&value=$value",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+     }
+
     public function update(Request $request, Gateway $gateway)
     {
         $data = $request->all();
@@ -98,24 +121,9 @@ class GatewayController extends Controller
         }
 
         $number = $request->number;
-        echo "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number&getStatusText=$getStatusText&status=$status";
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number&getStatusText=$getStatusText&status=$status",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        // echo $response;
+ 
+        $this->sentRequest($getName,$number);
+        $this->sentRequest($getStatusText,$status);
 
 
        return  $gateway->update($data);
