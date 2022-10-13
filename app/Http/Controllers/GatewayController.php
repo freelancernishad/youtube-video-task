@@ -79,7 +79,7 @@ class GatewayController extends Controller
         if($status=='active'){
             $status = true;
         }else{
-            $status = false;
+            $status = '';
         }
 
         $getStatusText = '';
