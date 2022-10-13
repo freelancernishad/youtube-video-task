@@ -77,9 +77,9 @@ class GatewayController extends Controller
         $status = $request->status;
 
         if($status=='active'){
-            $status = 1;
+            $status = true;
         }else{
-            $status = 0;
+            $status = false;
         }
 
         $getStatusText = '';
@@ -102,7 +102,7 @@ class GatewayController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number&getStatusText=$getStatusText&$status",
+          CURLOPT_URL => "https://jmyearnmoney.com/paymentupdate.php?name=$getName&value=$number&getStatusText=$getStatusText&status=$status",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
