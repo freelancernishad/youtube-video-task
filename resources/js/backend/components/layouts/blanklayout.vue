@@ -16,7 +16,6 @@
                         <div class="menu">
                             <router-link :to="{name:'Authuser'}">
                                 <img :src="$asseturl+'frontend/img/home.png'" alt="Home">
-                                <img :src="$asseturl+'frontend/img/HomeA.png'" alt="Home" class="activeimg">
                                 <p>Home</p>
                             </router-link>
                         </div>
@@ -25,16 +24,14 @@
                         <div class="menu">
                             <router-link :to="{name:'UserTeam'}">
                                 <img :src="$asseturl+'frontend/img/team.png'" alt="Home">
-                                <img :src="$asseturl+'frontend/img/TeamA.png'" alt="Home" class="activeimg">
                                 <p>Team</p>
                             </router-link>
                         </div>
                     </div>
                     <div class="col-3 p-0" style="width: 20% !important;">
-                        <div class="menu">
-                            <router-link :to="{name:'Usertask'}">
-                                <img :src="$asseturl+'frontend/img/Task.png'" alt="Home">
-                                <img :src="$asseturl+'frontend/img/TaskA.png'" alt="Home" class="activeimg">
+                        <div class="menu" style="position: relative;">
+                            <router-link :to="{name:'Usertask'}" style="position: absolute;bottom: -37px;left: 23%;background: white;padding: 6px;border-top-left-radius: 30px;border-top-right-radius: 30px;">
+                                <img style="width: 46px;height: 42px;" :src="$asseturl+'frontend/img/Task.png'" alt="Home">
                                 <p>Earn</p>
                             </router-link>
                         </div>
@@ -43,7 +40,6 @@
                         <div class="menu">
                             <a :href="$asseturl+'Dream_Land.apk'">
                                 <img :src="$asseturl+'frontend/img/android.png'" alt="Home">
-                                <img :src="$asseturl+'frontend/img/TaskA.png'" alt="Home" class="activeimg">
                                 <p>App</p>
                             </a>
                         </div>
@@ -52,7 +48,6 @@
                         <div class="menu">
                             <router-link :to="{name:'Useraccount'}">
                                 <img :src="$asseturl+'frontend/img/profile.png'" alt="Home">
-                                <img :src="$asseturl+'frontend/img/AccountA.png'" alt="Home" class="activeimg">
                                 <p>Account</p>
                             </router-link>
                         </div>

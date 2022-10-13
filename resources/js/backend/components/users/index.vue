@@ -43,7 +43,7 @@
 
             <div class="col-md-6">
                 <router-link :to="{name:'Recharge'}">
-                <div class="card" style="    background: #afaf0b80; margin-bottom: 22px;">
+                <div class="card" style="    background: #b0b00a; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/recharge.png'" alt="tab" />
                         <h5 class="card-title text-white">{{ $t('Recharge.value') }}</h5>
@@ -57,7 +57,7 @@
 
             <div class="col-md-6">
                 <router-link :to="{name:'Withdraw'}">
-                <div class="card" style="    background: #960baf80; margin-bottom: 22px;">
+                <div class="card" style="    background: #960baf; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/withdraw.png'" alt="tab" />
                         <h5 class="card-title text-white">{{ $t('Withdraw.value') }}</h5>
@@ -70,14 +70,14 @@
 
 
             <div class="col-md-6">
-                <router-link :to="{name:'companyPro'}">
-                <div class="card" style="    background: #0baf4a80; margin-bottom: 22px;">
+                <a :href="settings.telegroup">
+                <div class="card" style="    background: #0baf4a; margin-bottom: 22px;">
                     <div class="card-body">
-                        <img width="100%" :src="$asseturl+'frontend/img/companyprofile.png'" alt="tab" />
-                        <h5 class="card-title text-white">{{ $t('Company_Profile.value') }}</h5>
+                        <img width="100%" :src="$asseturl+'frontend/img/Telegram.png'" alt="tab" />
+                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
                     </div>
                 </div>
-            </router-link>
+            </a>
             </div>
 
 
@@ -85,7 +85,7 @@
 
             <div class="col-md-6">
                 <router-link :to="{name:'invite'}">
-                <div class="card" style="    background: #0b37a67d; margin-bottom: 22px;">
+                <div class="card" style="    background: #0b37a6bf; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/invite.png'" alt="tab" />
                         <h5 class="card-title text-white">{{ $t('Invite.value') }}</h5>

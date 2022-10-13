@@ -8,64 +8,38 @@
         <section id="topbar">
             <div class="title">
                 <p>Orders</p>
-                <LanguageComponent/>
-                <router-link :to="{name:'orders'}"><img :src="$asseturl + 'frontend/img/tasks.png'" alt="logo"></router-link>
+                <LanguageComponent />
+                <router-link :to="{name:'orders'}"><img :src="$asseturl + 'frontend/img/tasks.png'" alt="logo">
+                </router-link>
             </div>
         </section>
-
-
-
         <section>
             <div class="row">
-
                 <div class="col-md-12">
-
-                    <youtube :video-id="videoId" ref="youtube" @playing="playVideo"  width="100%" height="100%" @paused="pauseVideo('menual')"></youtube>
-
-
-                   <h3> Stay on This Tab: {{ time }} second</h3>
-
+                    <youtube :video-id="videoId" ref="youtube" @playing="playVideo" width="100%" height="100%"
+                        @paused="pauseVideo('menual')"></youtube>
+                    <h3> Stay on This Tab: {{ time }} second</h3>
                     <!-- <button @click="playVideo">play</button>
                     <button @click="pauseVideo">pauseVideo</button>
                     <button @click="stopVideo">Stop</button> -->
-
-
                 </div>
-
-
-
             </div>
-
         </section>
-
-
-
-
-
-
-
-
     </div>
 </template>
 <script>
 export default {
     created() {
         this.getData();
-
         this.videoId = this.$route.params.id;
-
-        document.addEventListener('visibilitychange',  (event)=> {
+        document.addEventListener('visibilitychange', (event) => {
             if (document.hidden) {
-                // console.log('not visible');
-
-                if(this.playStatus=='Play') Notification.customError(`You can't leave this tab.You must stay on this tab untill task end.`);
-
+                if (this.playStatus == 'Play') Notification.customError(`You can't leave this tab.You must stay on this tab untill task end.`);
                 this.pauseVideo()
             } else {
                 // console.log('is visible');
             }
         });
-
     },
     data() {
         return {
@@ -73,11 +47,12 @@ export default {
             fitParent: true,
             receive: false,
             orderpage: false,
-            time: 20,
+            time: 60,
             playStatus: 'Pause',
-            setIntervalFun:null,
+            setIntervalFun: null,
+            settings: {},
             row: {
-                user:{},
+                user: {},
             },
             form: {
                 task_comisition: 0
@@ -96,68 +71,45 @@ export default {
                 '10.jpeg',
                 '11.jpeg',
             ],
-            taskProduct:'',
+            taskProduct: '',
         }
     },
     computed: {
-    player() {
-      return this.$refs.youtube.player
-    }
-  },
-    methods: {
-
-
-
-
-
-
-
-
-
-    playVideo() {
-        this.playStatus ='Play'
-        this.time = 20
-        this.recievefun()
-
-        this.setIntervalFun = setInterval(() => {
-            this.taskDuration()
-        }, 1000);
-
-
-
-
-    //   this.player.playVideo()
-    },
-
-    pauseVideo(action="") {
-        this.time=20
-       if(action=='menual') Notification.customError(`You must complete ${this.time} second video`);
-     this.playStatus = 'Pause';
-        this.player.stopVideo()
-        clearInterval(this.setIntervalFun);
-        // this.taskDuration()
-    },
-
-    taskDuration(){
-        if(this.playStatus=='Play'){
-           this.time--;
-
-           if(this.time<=0){
-
-                this.pauseVideo()
-                this.orderSubmit()
-            }
-
-
-        }else if(this.playStatus=='Pause'){
-            this.time=20
+        player() {
+            return this.$refs.youtube.player
         }
-        console.log(this.time)
     },
-
-
+    methods: {
+        playVideo() {
+            this.playStatus = 'Play'
+            this.time = this.settings.worktime
+            this.recievefun()
+            this.setIntervalFun = setInterval(() => {
+                this.taskDuration()
+            }, 1000);
+            //   this.player.playVideo()
+        },
+        pauseVideo(action = "") {
+            this.time = this.settings.worktime
+            if (action == 'menual') Notification.customError(`You must complete ${this.time} second video`);
+            this.playStatus = 'Pause';
+            this.player.stopVideo()
+            clearInterval(this.setIntervalFun);
+            // this.taskDuration()
+        },
+        taskDuration() {
+            if (this.playStatus == 'Play') {
+                this.time--;
+                if (this.time <= 0) {
+                    this.pauseVideo()
+                    this.orderSubmit()
+                }
+            } else if (this.playStatus == 'Pause') {
+                this.time = this.settings.worktime
+            }
+            // console.log(this.time)
+        },
         recievefun() {
-
             if (Number(this.row.user.task) < 1) {
                 Notification.customError(`You Can't Complete any order Today`);
                 this.pauseVideo()
@@ -169,27 +121,23 @@ export default {
             }
         },
         async getData() {
+            var resN = await this.callApi('get', `/api/admin/setting`, [])
+            this.settings = resN.data
+            this.time = resN.data.worktime
             var id = localStorage.getItem('userid');
             var res = await this.callApi('get', `/api/admin/user/${id}`, []);
             this.row = res.data;
         },
-
-
-    async orderSubmit(){
-        this.form['user_id'] = this.row.user.id;
-        var res = await this.callApi('post',`/api/admin/task`,this.form);
-        if(res.data==444){
-            Notification.customError(`You Can't Complete any order Today`);
-        }else{
-            Notification.customSuccess('Task Completed');
+        async orderSubmit() {
+            this.form['user_id'] = this.row.user.id;
+            var res = await this.callApi('post', `/api/admin/task`, this.form);
+            if (res.data == 444) {
+                Notification.customError(`You Can't Complete any order Today`);
+            } else {
+                Notification.customSuccess('Task Completed');
+            }
+            this.$router.push({ name: 'Usertask' })
         }
-
-        this.$router.push({ name: 'Usertask' })
-
-    }
-
-
-
     },
 }
 </script>
@@ -216,4 +164,3 @@ button.OrderReceive {
     padding: 11px 15px;
 }
 </style>
-

@@ -51,11 +51,49 @@
 
                                         </div>
                                     </div>
+
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Min Deposit</label>
                                             <!-- <vue-editor v-model="form.notice"></vue-editor> -->
                                             <input v-model="form.min_deposit" class="form-control"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Telegram Group</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.telegroup" class="form-control"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Telegram Support 1</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.telesupport1" class="form-control"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Telegram Support 2</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.telesupport2" class="form-control"/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Telegram Support 3</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.telesupport3" class="form-control"/>
 
                                         </div>
                                     </div>

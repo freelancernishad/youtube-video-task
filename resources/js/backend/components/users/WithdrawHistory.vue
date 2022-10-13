@@ -19,7 +19,9 @@
 
             <div role="feed" class="van-list row" aria-busy="true">
                 <div class="recordDiv col-md-6" v-for="rech in row" :key="'rech'+rech.id">
-                    <div class="card text-dark" :style="{backgroundColor:generator()}" style="margin-bottom: 20px">
+
+
+                    <div class="card text-white" :style="[rech.status=='pending' ? {'background': 'red'} : {'background': 'green'}]" style="margin-bottom: 20px">
                         <div class="card-header">
                             <h5 class="card-title">{{ $t('Recharge_amount.value') }} {{ rech.amount }} </h5>
                         </div>
@@ -32,6 +34,9 @@
                             <p>{{ $t('Remarks.value') }} :- {{ rech.admin_feedback }}</p>
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
 

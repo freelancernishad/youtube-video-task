@@ -33,7 +33,7 @@
 
                 <div class="row">
                   <div class="col-md-6" v-for="member in row.level1" :key="'level1'+member.id">
-                    <div class="card" :style="{backgroundColor:generator()}" style="margin-bottom:20px">
+                    <div class="card text-white" :style="{backgroundColor:'#cd4ca9'}" style="margin-bottom:20px">
                       <div class="card-body">
                           <span style="font-size: 21px;"> Username : {{ member.username }} </span> <br />
                           <span> Recharge : <Counting :member-id="member.id" member-type="Recharge"></Counting> </span> <br />
@@ -53,7 +53,7 @@
               <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="row">
                   <div class="col-md-6" v-for="member in row.level2[0]" :key="'level12'+member.id">
-                    <div class="card" :style="{backgroundColor:generator()}" style="margin-bottom:20px">
+                    <div class="card" :style="{backgroundColor:'#cd4ca9'}" style="margin-bottom:20px">
                       <div class="card-body">
                     <span style="font-size: 21px;"> Username : {{ member.username }} </span> <br />
                     <span> Recharge : <Counting :member-id="member.id" member-type="Recharge"></Counting> </span> <br />
@@ -69,7 +69,7 @@
               <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                 <div class="row">
                   <div class="col-md-6" v-for="member in row.level3[0]" :key="'level3'+member.id">
-                    <div class="card" :style="{backgroundColor:generator()}" style="margin-bottom:20px">
+                    <div class="card" :style="{backgroundColor:'#cd4ca9'}" style="margin-bottom:20px">
                       <div class="card-body">
                     <span style="font-size: 21px;"> Username : {{ member.username }} </span> <br />
                     <span> Recharge : <Counting :member-id="member.id" member-type="Recharge"></Counting> </span> <br />

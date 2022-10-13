@@ -72,15 +72,19 @@
                             <p>{{ $t('Invite.value') }}</p>
                         </router-link></li>
 
-                    <li><a href="https://t.me/+iO84tmrv8JNkZTRl" class="accountList odd listTeleGroup" target="_blank"><img :src="$asseturl+'frontend/img/Telegram.png'">
+                    <li v-if="settings.telegroup"><a :href="settings.telegroup" class="accountList odd listTeleGroup" target="_blank"><img :src="$asseturl+'frontend/img/Telegram.png'">
                             <p>{{ $t('Official_Telegram_Group.value') }}</p>
                         </a></li>
 
-                    <li><a href="https://t.me/DreamlandCustomersurvice" class="accountList even listCus1" target="_blank"><img :src="$asseturl+'frontend/img/aGroup.jpeg'">
+                    <li v-if="settings.telesupport1"><a :href="settings.telesupport1" class="accountList even listCus1" target="_blank"><img :src="$asseturl+'frontend/img/aGroup.jpeg'">
                             <p>{{ $t('Customer_Service.value') }} 1</p></a>
                     </li>
 
-                    <li><a href="https://t.me/Dreamland_Millye" class="accountList odd listCus2" target="_blank"><img src="https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg">
+                    <li v-if="settings.telesupport2"><a :href="settings.telesupport2" class="accountList odd listCus2" target="_blank"><img src="https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg">
+                            <p>{{ $t('Customer_Service.value') }} 2</p></a>
+                    </li>
+
+                    <li v-if="settings.telesupport3"><a :href="settings.telesupport3" class="accountList even listCus3" target="_blank"><img src="https://cdn5.vectorstock.com/i/1000x1000/01/69/businesswoman-character-avatar-icon-vector-12800169.jpg">
                             <p>{{ $t('Customer_Service.value') }} 2</p></a>
                     </li>
 
@@ -108,6 +112,7 @@
 export default {
     data(){
         return {
+            settings:{},
               row: {
                 plans:{},
                 deposit:{},
@@ -121,6 +126,12 @@ export default {
     },
     methods: {
           async getData() {
+
+
+
+            var resN = await this.callApi('get',`/api/admin/setting`,[])
+              this.settings = resN.data
+
              var id = localStorage.getItem('userid');
             var res = await this.callApi('get', `/api/admin/user/${id}`, []);
             this.row = res.data;

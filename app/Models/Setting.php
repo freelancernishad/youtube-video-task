@@ -15,5 +15,10 @@ class Setting extends Model
         'refer_bonus',
         'a',
         'min_deposit',
+        'telegroup',
+        'telesupport1',
+        'telesupport2',
+        'telesupport3',
+        'worktime',
     ];
 }
