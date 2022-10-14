@@ -81,7 +81,7 @@ export default {
             }else{
                 this.form['userid'] = localStorage.getItem('userid')
                 var res = await this.callApi('post', `/api/pay`, this.form);
-                // window.location.href=res.data
+                window.location.href=res.data
             }
 
 

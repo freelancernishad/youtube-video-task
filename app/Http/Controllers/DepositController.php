@@ -1,325 +1,210 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Models\Deposit;
-use App\Models\Gateway;
-use App\Models\Level;
-use App\Models\Plan;
-use App\Models\Transition;
-use App\Models\User;
+
+use Exception;
+use App\Models\Order;
+use App\Library\UddoktaPay;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-class DepositController extends Controller
-{
 
-
-
-    public function CTRLRequest($url='',$data='',$header=['Content-Type: application/json'])
-    {
-
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>$data,
-            CURLOPT_HTTPHEADER => $header,
-            ));
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-            return $response;
-
-    }
-
-
-
-    public function paymentwebhook(Request $request)
-    {
-
-
-
-          $apiResponse =  $request->all();
-        //   $depositCheck = Deposit::where('trx',$apiResponse->transaction_id)->count();
-        //   if($depositCheck>0){
-        //     return 'This Transition id already exits.';
-        //   }
-Log::info($apiResponse);
-          $method =  ucfirst($apiResponse['payment_method']);
-          $sender_number =  $apiResponse['sender_number'];
-          $amount =  $apiResponse['amount'];
-          $transaction_id =  $apiResponse['transaction_id'];
-           $user_id =  $apiResponse['metadata']['userid'];
-
-
-                  $methodData = Gateway::where(['name' => $method])->first();
-                  $depositData = [
-                      'user_id'=>$user_id,
-                      'method'=>$methodData->id,
-                      'amount'=>$amount,
-                      'curency'=>$methodData->currency,
-                      'rate'=>$methodData->rate,
-                      'sender'=>$sender_number,
-                      'trx'=>$transaction_id,
-                      'status'=>'pending',
-                  ];
-                $new_Deposit =    Deposit::create($depositData);
-
-        if($apiResponse['status']=='COMPLETED'){
-
-            return  $this->userbanned('approved',$new_Deposit->id);
-        }
-
-
-
-
-
-
-
-    }
-
-
-    public function paymentSuccess(Request $request)
-    {
-
-
-
-
-        $redirect = url('/dashboard/user/rechargeHistory');
-
-
-    $html = "
-    <!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Document</title>
-</head>
-<body>
-    <style>
-        *{
-            margin:0
-        }
-    </style>
-    <div style='text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);width: 300px;'>
-    <h2 style='color:red'>Don't Close this page</h2>
-    <p>Please wait untill redirect this page</p>
-    <p style='display:none' id='redirect'>if can't redirect this page <a href='$redirect'>Click to redirect</a></p>
-    <h2 style='display:block;color:#3e12a8' id='coundown'></h2>
-    </div>
-<script>
-var i = 5;
-setInterval(function(){
-    document.getElementById('coundown').innerHTML='Please Wait'+i
-    if(i==0){
-        document.getElementById('redirect').style.display='block'
-         document.getElementById('coundown').style.display='none'
-         window.location.href = '$redirect'
-    }
-    i--
-}, 1000);
-</script>
-    </body>
-    </html>
-    ";
-    echo $html;
-
-    // die();
-
-
-
-
-    }
-
-
-
-
+class UddoktapayController extends Controller {
 
     /**
-     * Display a listing of the resource.
+     * Show the payment view
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index(Request $request)
-    {
-        $id = $request->id;
-        if ($id) {
-            return Deposit::where(['user_id' => $id])->orderBy('created_at','DESC')->get();
-        }
-        $status = $request->status;
-        if ($status == 'all') {
-            return Deposit::with(['methods','users'])->get();
-        } else {
-            return Deposit::with(['methods','users'])->where([
-                'status' => $status
-            ])->where('user_id','!=',null)->orderBy('created_at','DESC')->get();
-        }
+    public function show() {
+        return view( 'uddoktapay.payment-form' );
     }
 
-
-    public function userbanned($status, $id)
-    {
-        $deposit = Deposit::find($id);
-        if ($status == 'approved') {
-        $userid = $deposit->user_id;
-        $methodid = $deposit->method;
-        $user = User::find($userid);
-        $DPamount =  $deposit->amount;
-
-
-
-
-        $levelOneCommisition =  levelCommistion('Level1', $DPamount);
-        $levelTwoCommisition =  levelCommistion('Level2', $DPamount);
-        $levelThreeCommisition =  levelCommistion('Level3', $DPamount);
-        if ($user->ref_by) {
-            $LevelOneUser = User::where(['username' => $user->ref_by])->first();
-            $depositCount = Deposit::where(['user_id'=>$LevelOneUser->id,'status'=>'approved'])->count();
-            if($depositCount>0){
-            $LevelOneNewBalance = balanceIncrease($LevelOneUser->balance, $levelOneCommisition);
-            transitionCreate($LevelOneUser->id,$levelOneCommisition,0,$levelOneCommisition,'increase',$deposit->trx,'refer_commisition','');
-            // return planId($LevelOneNewBalance);
-            $LevelOneUser->update([
-                'balance' => $LevelOneNewBalance,
-                'plan_id' => planId($LevelOneNewBalance),
-            ]);
-        }
-            if ($LevelOneUser->ref_by) {
-                $LevelTwoUser = User::where(['username' => $LevelOneUser->ref_by])->first();
-                $depositCount = Deposit::where(['user_id'=>$LevelTwoUser->id,'status'=>'approved'])->count();
-                if($depositCount>0){
-                $LevelTwoNewBalance = balanceIncrease($LevelTwoUser->balance, $levelTwoCommisition);
-                transitionCreate($LevelTwoUser->id,$levelTwoCommisition,0,$levelTwoCommisition,'increase',$deposit->trx,'refer_commisition','');
-
-                $LevelTwoUser->update([
-                    'balance' => $LevelTwoNewBalance,
-                    'plan_id' => planId($LevelTwoNewBalance),
-                ]);
-            }
-                if ($LevelTwoUser->ref_by) {
-                    $LevelThreeUser = User::where(['username' => $LevelTwoUser->ref_by])->first();
-                    $depositCount = Deposit::where(['user_id'=>$LevelThreeUser->id,'status'=>'approved'])->count();
-                    if($depositCount>0){
-                    $LevelThreeNewBalance = balanceIncrease($LevelThreeUser->balance, $levelThreeCommisition);
-                    transitionCreate($LevelThreeUser->id,$levelThreeCommisition,0,$levelThreeCommisition,'increase',$deposit->trx,'refer_commisition','');
-                    $LevelThreeUser->update([
-                        'balance' => $LevelThreeNewBalance,
-                        'plan_id' => planId($LevelThreeNewBalance),
-                    ]);
-                }
-                }
-            }
-        }
-        $method = Gateway::find($methodid);
-        $userbalance = $user->balance;
-        if ($userbalance == null) $userbalance = 0;
-        $amount = $userbalance + $deposit->amount;
-        $plans = Plan::where('start_balance', '<=', $amount)->where('end_balance', '>=', $amount)->where('status', 'active')->first();
-        if ($status == 'approved') {
-            $user->update([
-                'plan_id' => planId($amount),
-                'balance' => $amount,
-            ]);
-        }
-        transitionCreate($userid,$amount,0,$amount,'increase',$deposit->trx,'rechage','');
-    }
-        return $deposit->update(['status' => $status]);
-    }
     /**
-     * Show the form for creating a new resource.
+     * Initializes the payment
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $method = $request->method;
-        $methodData = Gateway::where(['name' => $method])->first();
-        $data = $request->all();
-        $date = date("Y-m-d");
+    public function pay( Request $request ) {
 
-        if($request->screenshot){
-            $data['screenshot'] =  fileupload($request->screenshot, "Recharge/screenshot/$date/");
-        }
 
-        $data['method'] =  $methodData->id;
-        $data['curency'] =  $methodData->currency;
-        $data['rate'] =  $methodData->rate;
-        //  $data['trx'] = strtoupper(Str::random(10));
-        $data['status'] = 'pending';
-        return Deposit::create($data);
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Deposit $deposit)
-    {
-        $dp =  $deposit;
-        $user = User::where(['id' => $dp->user_id])->first();
-        $method = Gateway::where(['id' => $dp->method])->first();
-        $rows = [
-            'deposit' => $dp,
-            'user' => $user,
-            'method' => $method,
+
+  $amount =$request->amount;
+$metadata = json_encode($request->all());
+$panel_url = env('UDDOKTAPAY_PAYMENT_DOMAIN');
+$Api_Key = env('UDDOKTAPAY_API_KEY');
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "$panel_url",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+    "full_name": "Freelancer Nishad",
+    "email": "freelancernishad123@gmail.com",
+    "amount": "'.$amount.'",
+    "metadata": '.$metadata.',
+     "redirect_url": "'.route( 'uddoktapay.success' ).'",
+     "cancel_url": "'.route( 'uddoktapay.cancel' ).'",
+     "webhook_url": "'.env( "UDDOKTAPAY_WEBHOOK_DOMAIN" ).'"
+}',
+  CURLOPT_HTTPHEADER => array(
+    "Content-Type: application/json",
+    "RT-UDDOKTAPAY-API-KEY: $Api_Key"
+
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+return json_decode($response)->payment_url;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $amount =$request->amount;
+
+$metadata = json_encode($request->all());
+$curl = curl_init();
+$panel_url = env('UDDOKTAPAY_PAYMENT_DOMAIN');
+$Api_Key = env('UDDOKTAPAY_API_KEY');
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "$panel_url/api/checkout-v2",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+     "full_name": "Freelancer Nishad",
+     "email": "freelancernishad123@gmail.com",
+     "amount": "'.$amount.'",
+     "metadata": '.$metadata.',
+     "redirect_url": "'.route( 'uddoktapay.success' ).'",
+     "cancel_url": "'.route( 'uddoktapay.cancel' ).'",
+     "webhook_url": "'.env( "UDDOKTAPAY_WEBHOOK_DOMAIN" ).'"
+}
+',
+  CURLOPT_HTTPHEADER => array(
+    "RT-UDDOKTAPAY-API-KEY: $Api_Key",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+return $response;
+
+
+
+
+
+
+
+
+
+
+
+
+        $amount =$request->amount;
+        $metadata = $request->all();
+        $requestData = [
+            'full_name'    => 'Freelancer Nishad',
+            'email'        => 'freelancernishad123@gmail.com',
+            'amount'       => $amount,
+            'metadata'     => $metadata,
+            'redirect_url' => route( 'uddoktapay.success' ),
+            'cancel_url'   => route( 'uddoktapay.cancel' ),
+            'webhook_url'  => env( "UDDOKTAPAY_WEBHOOK_DOMAIN" ),
         ];
-        return $rows;
+
+        try {
+         return   $paymentUrl = UddoktaPay::init_payment( $requestData );
+            return redirect ( $paymentUrl );
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
+
     /**
-     * Show the form for editing the specified resource.
+     * Reponse from sever
      *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function edit(Deposit $deposit)
-    {
-        //
+    public function webhook( Request $request ) {
+
+        $headerApi = isset( $_SERVER['HTTP_RT_UDDOKTAPAY_API_KEY'] ) ? $_SERVER['HTTP_RT_UDDOKTAPAY_API_KEY'] : null;
+
+        if ( $headerApi == null ) {
+            return response( "Api key not found", 403 );
+        }
+
+        if ( $headerApi != env( "UDDOKTAPAY_API_KEY" ) ) {
+            return response( "Unauthorized Action", 403 );
+        }
+
+        $validatedData = $request->validate( [
+            'full_name'      => 'required',
+            'email'          => 'required',
+            'amount'         => 'required',
+            'invoice_id'     => 'required',
+            'metadata'       => 'required',
+            'payment_method' => 'required',
+            'sender_number'  => 'required',
+            'transaction_id' => 'required',
+            'status'         => 'required',
+        ] );
+
+        Order::findOrFail( $validatedData['metadata']['order_id'] )->update( [
+            'status'         => $validatedData['status'],
+            'payment_method' => $validatedData['payment_method'],
+            'sender_number'  => $validatedData['sender_number'],
+            'transaction_id' => $validatedData['transaction_id'],
+            'invoice_id'     => $validatedData['invoice_id'],
+        ] );
+
+        return response( 'Database Updated' );
+        Log::info($data);
     }
+
     /**
-     * Update the specified resource in storage.
+     * Success URL
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function update(Request $request, Deposit $deposit)
-    {
-        //
+    public function success() {
+        return 'Payment is successful, Thanks for using Uddokta Pay- Regards <a href="https://codecstasy.com">Code Ecstasy</a>';
     }
+
     /**
-     * Remove the specified resource from storage.
+     * Cancel URL
      *
-     * @param  \App\Models\Deposit  $deposit
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function destroy(Deposit $deposit)
-    {
-        //
+    public function cancel() {
+        return redirect('/dashboard/user/Recharge');
     }
+
 }
