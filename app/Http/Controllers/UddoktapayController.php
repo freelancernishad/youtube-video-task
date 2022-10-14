@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Order;
 use App\Library\UddoktaPay;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +31,8 @@ class UddoktapayController extends Controller {
 
 
   $amount =$request->amount;
+  $userid =$request->userid;
+  $user = User::find($userid);
 $metadata = json_encode($request->all());
 $panel_url = env('UDDOKTAPAY_PAYMENT_DOMAIN');
 $Api_Key = env('UDDOKTAPAY_API_KEY');
@@ -45,8 +48,8 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>'{
-    "full_name": "Freelancer Nishad",
-    "email": "freelancernishad123@gmail.com",
+    "full_name": "'.$user->name.'",
+    "email": "'.$user->email.'",
     "amount": "'.$amount.'",
     "metadata": '.$metadata.',
      "redirect_url": "'.route( 'uddoktapay.success' ).'",

@@ -117,7 +117,7 @@ class authController extends Controller
                $refer_bonus =  (int)settings()->refer_bonus;
                if($refer_bonus>0){
                 $reUserCount =  User::where('ref_by',$r->ref_by)->count();
-                if($reUserCount<70){
+                if($reUserCount<50){
                     $reUser =  User::where('username',$r->ref_by)->first();
                     transitionCreate($reUser->id,$refer_bonus,0,$refer_bonus,'increase','1234','refer_commisition','');
                     $reUser->update(['balance'=> balanceIncrease($reUser->balance, $refer_bonus)]);
