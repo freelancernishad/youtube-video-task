@@ -79,7 +79,7 @@ class authController extends Controller
             $lastUser = User::latest()->first();
             $username =  $lastUser->username+1;
         }else{
-            $username =  '1000000';
+            $username =  '100000';
         }
 
 

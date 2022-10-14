@@ -196,6 +196,9 @@ class Language {
             Confirm_to_modify_the_login_password : {
                 value: 'Confirm to modify the login password'
             },
+            elpLine_Support : {
+                value: '24/7 HelpLine Support'
+            },
         }
         return lang;
     }
@@ -396,6 +399,9 @@ class Language {
             },
             Confirm_to_modify_the_login_password : {
                 value: 'লগইন পাসওয়ার্ড পরিবর্তন করতে নিশ্চিত করুন'
+            },
+            elpLine_Support : {
+                value: '24/7 হেল্পলাইন সমর্থন'
             },
         }
         return lang;

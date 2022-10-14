@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu" style="position: relative;">
-                            <router-link :to="{name:'Usertask'}" style="position: absolute;bottom: -37px;left: 23%;background: white;padding: 6px;border-top-left-radius: 30px;border-top-right-radius: 30px;">
+                            <router-link :to="{name:'Usertask'}" style="position: absolute;bottom: -37px;left: 13%;background: white;padding: 6px;border-top-left-radius: 30px;border-top-right-radius: 30px;">
                                 <img style="width: 46px;height: 42px;" :src="$asseturl+'frontend/img/Task.png?ver=1.0'" alt="Home">
                                 <p>Earn</p>
                             </router-link>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-3 p-0" style="width: 20% !important;">
                         <div class="menu">
-                            <a href="#">
+                            <a :href="$asseturl+'JMY_EARN_MONEY_16135694.apk'">
                                 <img :src="$asseturl+'frontend/img/android.png?ver=1.0'" alt="Home">
                                 <p>App</p>
                             </a>

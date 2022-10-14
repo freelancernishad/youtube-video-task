@@ -27,8 +27,8 @@ You will receive payment in 24 hours.
 development or cash
 
 Work time:
-2 PM to 12 PM.
-Wood time is 2 am to 12 am
+2PM to 12AM.
+Winthdraw time is 2pm to 6pm
 Deposit time is 24 hours.
 
 We deal directly with YouTube and earn profits from them, so you can earn more by investing here.

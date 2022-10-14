@@ -113,6 +113,14 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Task Time</label>
+                                            <!-- <vue-editor v-model="form.notice"></vue-editor> -->
+                                            <input v-model="form.worktime" class="form-control"/>
+
+                                        </div>
+                                    </div>
 
 
                             <div class="col-md-12 mt-4">

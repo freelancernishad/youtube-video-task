@@ -49,10 +49,19 @@ class DepositController extends Controller
 
 
           $apiResponse =  $request->all();
-        //   $depositCheck = Deposit::where('trx',$apiResponse->transaction_id)->count();
-        //   if($depositCheck>0){
-        //     return 'This Transition id already exits.';
-        //   }
+          $depositCheck = Deposit::where('trx',$apiResponse['transaction_id'])->count();
+          if($depositCheck>0){
+            $depositCheckP = Deposit::where(['trx'=>$apiResponse['transaction_id'],'status'=>'pending'])->count();
+            if($depositCheckP>0){
+                if($apiResponse['status']=='COMPLETED'){
+                    $new_Deposit = Deposit::where(['trx'=>$apiResponse['transaction_id'],'status'=>'pending'])->first();
+                    return  $this->userbanned('approved',$new_Deposit->id);
+                }
+                return 'This Transition id already exits.';
+            }
+
+            return 'This Transition id already exits.';
+          }
 Log::info($apiResponse);
           $method =  ucfirst($apiResponse['payment_method']);
           $sender_number =  $apiResponse['sender_number'];

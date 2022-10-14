@@ -38,7 +38,7 @@
                             <button class="btn btn-info" v-if="bankcardAlert" disabled >Wait...</button>
                             <button class="btn btn-info" v-else @click="nextFun(2)">Next</button>
                         </div>
-                        <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত </p>
+                        <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত </p>
                         <p style="color: red;text-align: center;font-size: 17px;">প্রত্যাহার প্রসেসিং ফি {{ gateways.percent_charge }}% এবং
                             প্রত্যাহার {{ gateways.processtime }} ঘন্টার মধ্যে একাউন্ট এ পৌছাবে</p>
                     </div>
@@ -201,8 +201,8 @@ export default {
 
 
 
-        if(User.dateformat()[9]<=16){
-            if(User.dateformat()[9]>=10){
+        if(User.dateformat()[9]<=17){
+            if(User.dateformat()[9]>=14){
 
                 setTimeout(() => {
                     if(!this.form.method){
@@ -211,14 +211,14 @@ export default {
                     }
                 }, 5000);
             }else{
-            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত')
+            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত')
 
                 this.$router.push({ name: 'Authuser' });
 
 
             }
         }else{
-            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ১২:০০ টা পর্যন্ত')
+            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত')
             this.$router.push({ name: 'Authuser' });
 
         }

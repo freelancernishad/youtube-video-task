@@ -95,7 +95,7 @@
                 <div class="card" style="    background: #0084d9; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/customerSupport.png'" alt="tab" />
-                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                        <h5 class="card-title text-white">{{ $t('elpLine_Support.value') }}</h5>
                     </div>
                 </div>
             </a>
@@ -107,7 +107,7 @@
                 <div class="card" style="    background: #0084d9; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/customerSupport.png'" alt="tab" />
-                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                        <h5 class="card-title text-white">{{ $t('elpLine_Support.value') }}</h5>
                     </div>
                 </div>
             </a>
@@ -119,7 +119,7 @@
                 <div class="card" style="    background: #0084d9; margin-bottom: 22px;">
                     <div class="card-body">
                         <img width="100%" :src="$asseturl+'frontend/img/customerSupport.png'" alt="tab" />
-                        <h5 class="card-title text-white">{{ $t('Official_Telegram_Group.value') }}</h5>
+                        <h5 class="card-title text-white">{{ $t('elpLine_Support.value') }}</h5>
                     </div>
                 </div>
             </a>
