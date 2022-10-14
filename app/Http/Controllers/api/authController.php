@@ -77,7 +77,7 @@ class authController extends Controller
         $CountUser = User::count();
         if($CountUser>0){
             $lastUser = User::latest()->first();
-            $username =  $lastUser->username+1;
+            $username =  intval($lastUser->username)+1;
         }else{
             $username =  '100000';
         }

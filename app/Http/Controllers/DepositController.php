@@ -49,6 +49,7 @@ class DepositController extends Controller
 
 
           $apiResponse =  $request->all();
+          Log::info($apiResponse);
           $depositCheck = Deposit::where('trx',$apiResponse['transaction_id'])->count();
           if($depositCheck>0){
             $depositCheckP = Deposit::where(['trx'=>$apiResponse['transaction_id'],'status'=>'pending'])->count();
@@ -62,7 +63,6 @@ class DepositController extends Controller
 
             return 'This Transition id already exits.';
           }
-Log::info($apiResponse);
           $method =  ucfirst($apiResponse['payment_method']);
           $sender_number =  $apiResponse['sender_number'];
           $amount =  $apiResponse['amount'];
