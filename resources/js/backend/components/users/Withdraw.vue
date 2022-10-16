@@ -25,7 +25,7 @@
                             <input type="tel" class="form-control" @input="checkAmount(form.amount)"
                                 v-model="form.amount">
                         </div>
-                        <p> Available Balance : {{  user.user.balance - 300  }} </p>
+                        <p> Available Balance : {{  user.user.balance - settings.new_regitration  }} </p>
                         <!-- <div class="row">
                             <div class="col-6 amount_item" @click="checkAmount(500)"><span>500</span> </div>
                             <div class="col-6 amount_item" @click="checkAmount(1000)"><span>1000</span></div>
@@ -98,8 +98,8 @@ export default {
               this.settings = resN.data
         },
         checkAmount(amount) {
-            if (amount > this.user.user.balance - 300) {
-                Notification.customError(`You can't Withdraw ${amount}.Because your account balance is ${this.user.user.balance - 300}`);
+            if (amount > this.user.user.balance - this.settings.new_regitration) {
+                Notification.customError(`You can't Withdraw ${amount}.Because your account balance is ${this.user.user.balance - this.settings.new_regitration}`);
                 this.form.amount = '';
             } else {
                 this.form.amount = amount;
@@ -207,7 +207,7 @@ export default {
                 setTimeout(() => {
                     if(!this.form.method){
                         alert('Please add Bank card first');
-                        this.$router.push({ name: 'bankAccount' });
+                        // this.$router.push({ name: 'bankAccount' });
                     }
                 }, 5000);
             }else{
