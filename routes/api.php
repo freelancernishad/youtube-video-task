@@ -74,6 +74,9 @@ Route::post( 'pay', [UddoktapayController::class, 'pay'] )->name( 'uddoktapay.pa
 Route::post('webhook', [DepositController::class,'paymentwebhook']);
 
 
+Route::get('getPayment/data', [GatewayController::class,'getPayment']);
+
+
 Route::get('count/username/check', [authController::class,'usernamecheck']);
 Route::group([
     'middleware' => 'auth:api'

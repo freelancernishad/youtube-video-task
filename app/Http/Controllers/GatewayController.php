@@ -94,15 +94,47 @@ class GatewayController extends Controller
         curl_close($curl);
      }
 
+
+     public function getPayment(Request $request)
+     {
+        $balaceAmount = $request->balaceAmount;
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://jmyearnmoney.com/paymentdata.php?name=$balaceAmount",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return $response;
+     }
+
+
     public function update(Request $request, Gateway $gateway)
     {
-        $data = $request->all();
+        $data = $request->except('balanceverify','AccountBalance');
         $status = $request->status;
+        $balanceverify = $request->balanceverify;
+        $AccountBalance = $request->AccountBalance;
 
         if($status=='active'){
             $status = true;
         }else{
             $status = 0;
+        }
+
+        if($balanceverify=='active'){
+            $balanceverify = true;
+        }else{
+            $balanceverify = 0;
         }
 
         $getStatusText = '';
@@ -112,18 +144,35 @@ class GatewayController extends Controller
             $getName = 'bkash_number';
             $getStatusText = 'bkash_enabled';
 
+            $balaceAmount = 'bkash_balance';
+            $balaceVerify = 'bkash_balance_verify';
+
         }elseif($name=="Nagad"){
             $getName = 'nagad_number';
             $getStatusText = 'nagad_enabled';
+
+            $balaceAmount = 'nagad_balance';
+            $balaceVerify = 'nagad_balance_verify';
         }elseif($name=="Rocket"){
             $getName = 'rocket_number';
             $getStatusText = 'rocket_enabled';
+
+            $balaceAmount = 'rocket_balance';
+            $balaceVerify = 'rocket_balance_verify';
         }
 
         $number = $request->number;
 
         $this->sentRequest($getName,$number);
         $this->sentRequest($getStatusText,$status);
+
+
+        $this->sentRequest($balaceVerify,$balanceverify);
+        $this->sentRequest($balaceAmount,$AccountBalance);
+
+
+
+
 
 
        return  $gateway->update($data);
