@@ -62,7 +62,7 @@ console.log("{{ Auth::user() }}")
 
     <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}" ></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}" ></script>
-    <script src="{{ asset('js/frontend.js?ver=1.0.7') }}"></script>
+    <script src="{{ asset('js/frontend.js?ver=1.0.8') }}"></script>
 
 
 

@@ -201,27 +201,27 @@ export default {
 
 
 
-        if(User.dateformat()[9]<=17){
-            if(User.dateformat()[9]>=14){
+        // if(User.dateformat()[9]<=17){
+        //     if(User.dateformat()[9]>=14){
 
-                setTimeout(() => {
-                    if(!this.form.method){
-                        alert('Please add Bank card first');
-                        // this.$router.push({ name: 'bankAccount' });
-                    }
-                }, 5000);
-            }else{
-            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত')
+        //         setTimeout(() => {
+        //             if(!this.form.method){
+        //                 alert('Please add Bank card first');
+        //                 // this.$router.push({ name: 'bankAccount' });
+        //             }
+        //         }, 5000);
+        //     }else{
+        //     alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত')
 
-                this.$router.push({ name: 'Authuser' });
+        //         this.$router.push({ name: 'Authuser' });
 
 
-            }
-        }else{
-            alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত')
-            this.$router.push({ name: 'Authuser' });
+        //     }
+        // }else{
+        //     alert('প্রত্যাহার সময় সপ্তাহের সোমবার থেকে শুক্রবার দুপর ০২:০০ থেকে রাত ০৬:০০ টা পর্যন্ত')
+        //     this.$router.push({ name: 'Authuser' });
 
-        }
+        // }
 
 
 
