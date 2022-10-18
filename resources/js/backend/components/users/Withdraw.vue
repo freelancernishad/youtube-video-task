@@ -207,7 +207,7 @@ export default {
                 setTimeout(() => {
                     if(!this.form.method){
                         alert('Please add Bank card first');
-                        // this.$router.push({ name: 'bankAccount' });
+                        this.$router.push({ name: 'bankAccount' });
                     }
                 }, 5000);
             }else{
